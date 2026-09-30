@@ -1,0 +1,997 @@
+/* ============================================================
+   CARDS — Sistema de tarjetas
+   Lenesens Hydralight
+   Cards para productos, ingredientes, testimonios, artículos,
+   beneficios y módulos editoriales.
+   ============================================================ */
+
+/* ============================================================
+   PARTE 1 — CARD BASE (compartida por todas)
+   ============================================================ */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  background: var(--color-surface-container-lowest);
+  border-radius: var(--card-radius);
+  border: 1px solid rgba(247, 141, 167, 0.25);
+  box-shadow: 0 4px 20px rgba(43, 29, 35, 0.04);
+
+  overflow: hidden;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+/* Elevación al hover (comportamiento por defecto) */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(166, 19, 82, 0.12);
+  border-color: rgba(247, 141, 167, 0.45);
+}
+
+/* Card sin hover elevación (para contenido editorial) */
+.card-static:hover {
+  transform: none;
+  box-shadow: 0 4px 20px rgba(43, 29, 35, 0.04);
+  border-color: rgba(247, 141, 167, 0.25);
+}
+
+/* Padding interno por defecto */
+.card-body {
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+/* Card con fondo gradiente sutil (para destacados) */
+.card-gradient {
+  background: linear-gradient(180deg, #fff9fa 0%, #ffffff 100%);
+}
+
+
+/* ============================================================
+   PARTE 2 — PRODUCT CARD (catálogo)
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   2.1 Estructura vertical (móvil por defecto, columnas en desktop)
+   --------------------------------------------------------- */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+
+  padding: var(--space-md);
+
+  background: var(--color-surface-container-lowest);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(247, 141, 167, 0.2);
+  box-shadow: 0 4px 20px rgba(43, 29, 35, 0.04);
+
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(166, 19, 82, 0.12);
+  border-color: rgba(247, 141, 167, 0.45);
+}
+
+/* Layout horizontal en desktop (imagen + info) */
+@media (min-width: 768px) {
+  .product-card {
+    flex-direction: row;
+    align-items: stretch;
+    padding: var(--space-lg);
+    gap: var(--space-lg);
+  }
+}
+
+/* ---------------------------------------------------------
+   2.2 Imagen del producto
+   --------------------------------------------------------- */
+.product-card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface-container-low);
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .product-card-image {
+    width: 11rem;           /* ~176px */
+    aspect-ratio: auto;
+    height: auto;
+    min-height: 14rem;
+  }
+}
+
+.product-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover .product-card-image img {
+  transform: scale(1.05);
+}
+
+/* Badges flotantes sobre la imagen */
+.product-card-image .badge-floating {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  z-index: var(--z-dropdown);
+}
+
+/* Botón de favoritos flotante */
+.product-card-favorite {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: var(--z-dropdown);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2rem;
+  height: 2rem;
+
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+
+  cursor: pointer;
+  transition: background var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.product-card-favorite:hover {
+  background: #ffffff;
+  transform: scale(1.08);
+}
+
+.product-card-favorite:active {
+  transform: scale(0.95);
+}
+
+.product-card-favorite.is-active {
+  background: var(--color-secondary-fixed);
+}
+
+.product-card-favorite img {
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.7;
+}
+
+.product-card-favorite:hover img,
+.product-card-favorite.is-active img {
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------
+   2.3 Contenido del producto
+   --------------------------------------------------------- */
+.product-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex: 1;
+  min-width: 0;   /* previene overflow */
+}
+
+.product-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+/* Meta: sobreline + rating */
+.product-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.product-card-tagline {
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  color: var(--color-tertiary);
+}
+
+.product-card-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  color: var(--color-on-surface);
+}
+
+.product-card-rating .star {
+  color: var(--color-tertiary-container);
+  font-size: 0.875rem;
+}
+
+.product-card-rating .count {
+  font-weight: var(--fw-regular);
+  color: var(--color-outline);
+  font-size: 0.6875rem;
+}
+
+/* Título del producto */
+.product-card-title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: var(--fw-bold);
+  line-height: 1.3;
+  color: var(--color-primary);
+  letter-spacing: var(--ls-wide);
+}
+
+@media (min-width: 768px) {
+  .product-card-title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Descripción */
+.product-card-description {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body-sm);
+  color: var(--color-on-surface-variant);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Chips de ingredientes */
+.product-card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+}
+
+.product-card-chips .chip {
+  padding: 0.25rem 0.5rem;
+  min-height: 1.375rem;
+  font-size: 0.5625rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-container);
+  border-color: transparent;
+  color: var(--color-on-surface-variant);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wider);
+}
+
+/* ---------------------------------------------------------
+   2.4 Footer del producto (precio + acciones)
+   --------------------------------------------------------- */
+.product-card-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-top: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.product-card-price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.product-card-price-label {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wider);
+  color: var(--color-outline);
+  font-weight: var(--fw-semibold);
+}
+
+.product-card-price-current {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-on-surface);
+  line-height: 1;
+}
+
+.product-card-price-current .currency {
+  font-size: 0.6875rem;
+  color: var(--color-tertiary);
+  font-weight: var(--fw-semibold);
+  margin-left: 0.25rem;
+  letter-spacing: var(--ls-tag);
+}
+
+.product-card-price-old {
+  font-size: 0.75rem;
+  color: var(--color-on-surface-variant);
+  text-decoration: line-through;
+  line-height: 1;
+}
+
+/* Acciones (qty + añadir) */
+.product-card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------
+   2.5 QTY STEPPER (stepper de cantidad)
+   --------------------------------------------------------- */
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+
+  border-radius: var(--radius-full);
+  background: var(--color-surface-container);
+  padding: 0.125rem;
+}
+
+.qty-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: none;
+
+  color: var(--color-primary);
+  font-weight: var(--fw-bold);
+  font-size: 0.875rem;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.qty-btn:hover {
+  background: var(--color-surface-container-lowest);
+}
+
+.qty-btn:active {
+  transform: scale(0.9);
+}
+
+.qty-value {
+  min-width: 1.5rem;
+  text-align: center;
+
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  color: var(--color-on-surface);
+  padding: 0 0.25rem;
+}
+
+
+/* ============================================================
+   PARTE 3 — INGREDIENT CARD (5 activos magistrales)
+   ============================================================ */
+.ingredient-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-md);
+
+  padding: var(--space-lg);
+
+  background: linear-gradient(180deg, #fff9fa 0%, #ffffff 100%);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(247, 141, 167, 0.35);
+  box-shadow: 0 4px 20px rgba(43, 29, 35, 0.04);
+
+  position: relative;
+
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.ingredient-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(166, 19, 82, 0.12);
+}
+
+/* Icon pod circular con anillo dorado */
+.ingredient-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 3.5rem;    /* 56px */
+  height: 3.5rem;
+
+  border-radius: var(--radius-full);
+  background: rgba(255, 217, 224, 0.5);
+  color: var(--color-primary);
+
+  /* Anillo dorado del design system */
+  box-shadow:
+    0 0 0 1px var(--color-gold),
+    0 0 0 6px rgba(212, 175, 55, 0.08);
+
+  flex-shrink: 0;
+}
+
+.ingredient-icon img,
+.ingredient-icon svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+}
+
+/* Variante gold del icon pod */
+.ingredient-icon-gold {
+  background: rgba(255, 224, 136, 0.4);
+  color: var(--color-tertiary);
+}
+
+/* Tag superior */
+.ingredient-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  color: var(--color-tertiary);
+  margin-top: var(--space-sm);
+}
+
+/* Nombre (serif) */
+.ingredient-name {
+  font-family: var(--font-display);
+  font-size: 1.375rem;   /* 22px */
+  font-weight: var(--fw-medium);
+  line-height: 1.27;
+  color: var(--color-primary);
+  margin-top: 0.25rem;
+}
+
+/* Descripción */
+.ingredient-desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body-md);
+  color: var(--color-on-surface-variant);
+  margin-top: var(--space-xs);
+}
+
+/* Footer con chip de atributo */
+.ingredient-footer {
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+}
+
+.ingredient-attribute {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-container-low);
+  color: var(--color-secondary);
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   PARTE 4 — TESTIMONIAL CARD
+   ============================================================ */
+.testimonial-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-md);
+
+  padding: var(--space-lg);
+
+  background: var(--color-surface-container-lowest);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 24px rgba(43, 29, 35, 0.05);
+  border: 1px solid rgba(247, 141, 167, 0.2);
+}
+
+.testimonial-card .stars {
+  display: flex;
+  gap: 0.125rem;
+  color: var(--color-tertiary-container);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.testimonial-card blockquote {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body-md);
+  font-style: italic;
+  color: var(--color-on-surface);
+}
+
+/* Autor */
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-surface-container-low);
+  margin-top: auto;
+}
+
+.testimonial-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.testimonial-author cite {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.testimonial-author span {
+  display: block;
+  font-size: var(--fs-body-sm);
+  color: var(--color-on-surface-variant);
+  margin-top: 0.125rem;
+}
+
+/* Tag inferior (opcional) */
+.testimonial-tag {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+
+/* ============================================================
+   PARTE 5 — BENEFIT CARD (sellos y beneficios)
+   ============================================================ */
+.benefit-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+
+  padding: var(--space-lg) var(--space-md);
+
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+
+  transition: transform var(--transition-base);
+}
+
+.benefit-card:hover {
+  transform: translateY(-4px);
+}
+
+.benefit-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 3rem;    /* 48px */
+  height: 3rem;
+
+  border-radius: var(--radius-full);
+  background: var(--color-secondary-fixed);
+  color: var(--color-primary);
+
+  margin-bottom: var(--space-xs);
+}
+
+.benefit-card-icon img,
+.benefit-card-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+.benefit-card-icon-gold {
+  background: var(--color-tertiary-fixed);
+  color: var(--color-tertiary);
+}
+
+.benefit-card-title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.benefit-card-desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+
+/* ============================================================
+   PARTE 6 — ARTICLE CARD (revista / blog)
+   ============================================================ */
+.article-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface-container-lowest);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(43, 29, 35, 0.04);
+  border: 1px solid rgba(247, 141, 167, 0.15);
+
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.article-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(166, 19, 82, 0.1);
+}
+
+/* Imagen superior */
+.article-card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-surface-container-low);
+}
+
+.article-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.article-card:hover .article-card-image img {
+  transform: scale(1.05);
+}
+
+/* Tag sobre la imagen */
+.article-card-image .badge {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  z-index: var(--z-dropdown);
+}
+
+/* Contenido */
+.article-card-body {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex: 1;
+}
+
+.article-card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  color: var(--color-tertiary);
+}
+
+.article-card-meta .dot {
+  color: var(--color-outline-variant);
+}
+
+.article-card-title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: var(--fw-bold);
+  line-height: 1.35;
+  color: var(--color-on-surface);
+  transition: color var(--transition-fast);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-card:hover .article-card-title {
+  color: var(--color-primary);
+}
+
+.article-card-description {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body-sm);
+  color: var(--color-on-surface-variant);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: auto;
+  padding-top: var(--space-md);
+}
+
+.article-card-cta {
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.article-card-arrow {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-primary);
+  transition: transform var(--transition-base);
+}
+
+.article-card:hover .article-card-arrow {
+  transform: translateX(4px);
+}
+
+
+/* ============================================================
+   PARTE 7 — FEATURE CARD (bloques destacados)
+   Ej: "Ideal después del rasurado", tips, notas clínicas.
+   ============================================================ */
+.feature-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+
+  padding: var(--space-md) var(--space-lg);
+
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 217, 224, 0.4) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  border: 1px solid rgba(247, 141, 167, 0.25);
+  box-shadow: var(--shadow-sm);
+}
+
+.feature-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 3rem;
+  height: 3rem;
+
+  border-radius: var(--radius-full);
+  background: var(--color-surface-container-lowest);
+  color: var(--color-primary);
+
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.feature-card-icon img,
+.feature-card-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+.feature-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.feature-card-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  letter-spacing: var(--ls-wide);
+}
+
+.feature-card-desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  color: var(--color-on-surface-variant);
+  line-height: var(--lh-body-sm);
+}
+
+/* Variante horizontal (icono a la derecha) */
+.feature-card-reverse {
+  flex-direction: row-reverse;
+}
+
+
+/* ============================================================
+   PARTE 8 — GRID LAYOUTS (contenedores de cards)
+   ============================================================ */
+
+/* Grid de productos (catálogo vertical) */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+/* Grid de ingredientes (auto-fit) */
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .ingredients-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ingredients-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+/* Grid de testimonios */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Grid de artículos (blog) */
+.article-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 640px) {
+  .article-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .article-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Grid de beneficios/sellos */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+@media (min-width: 768px) {
+  .benefits-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .benefits-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+
+/* ============================================================
+   PARTE 9 — RESPONSIVE Y AJUSTES
+   ============================================================ */
+@media (max-width: 480px) {
+  .product-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .product-card-actions {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .product-card-actions .btn {
+    flex: 1;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .card:hover,
+  .product-card:hover,
+  .ingredient-card:hover,
+  .article-card:hover,
+  .benefit-card:hover {
+    transform: none;
+  }
+
+  .product-card:hover .product-card-image img,
+  .article-card:hover .article-card-image img {
+    transform: none;
+  }
+
+  .article-card:hover .article-card-arrow {
+    transform: none;
+  }
+}

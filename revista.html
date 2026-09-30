@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#fbf9f6">
+
+  <title>Lenesens Skin Journal · Revista & Consejos · Colombia</title>
+  <meta name="description" content="Dermatología clínica y biotecnología botánica francesa adaptadas al fototipo y clima colombiano. Artículos, guías y rutinas para iluminar tu piel.">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lenesens Skin Journal · Revista Científica">
+  <meta property="og:description" content="Investigación dermatológica, rutinas y consejos para iluminar tu piel.">
+  <meta property="og:image" content="assets/img/brand/og-revista.jpg">
+  <meta property="og:locale" content="es_CO">
+
+  <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap"
+        media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap">
+  </noscript>
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    html{margin:0;padding:0;-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
+    body{margin:0;padding:0;min-height:100vh;line-height:1.5;font-family:'Montserrat',-apple-system,sans-serif;background:#fbf9f6;color:#1b1c1a}
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;cursor:pointer;background:none;border:none}
+    :root{--color-primary:#7f003b;--color-surface:#fbf9f6;--color-on-surface:#1b1c1a;--color-on-surface-variant:#584146;--font-display:'Playfair Display',serif;--font-body:'Montserrat',sans-serif;--radius-full:9999px;--header-height-mobile:4rem;--header-height:5rem}
+    .site-header{position:fixed;top:0;left:0;right:0;width:100%;z-index:50;background:rgba(255,255,255,.85);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 1px 8px rgba(0,0,0,.04)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;min-height:var(--header-height-mobile);max-width:1280px;margin-inline:auto;padding-inline:1.25rem}
+    .brand{display:inline-flex;align-items:center;gap:.5rem}
+    .brand-mark{display:inline-flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;border-radius:9999px;background:#ffd9e0}
+    .brand-mark svg{width:1.5rem;height:1.5rem;color:#7f003b;stroke:currentColor;fill:none}
+    .brand-name{font-family:var(--font-display);font-size:1.125rem;font-weight:700;text-transform:uppercase;color:#7f003b;line-height:1}
+    .brand-tagline{font-size:.625rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#584146;line-height:1;margin-top:.15rem}
+    .main-nav{display:none}
+    .header-actions{display:flex;align-items:center;gap:.5rem}
+    .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:2.5rem;border-radius:9999px;color:#584146}
+    .icon{display:inline-block;width:1.25rem;height:1.25rem;fill:none;stroke:currentColor}
+    .cart-badge{position:absolute;top:-.25rem;right:-.25rem;min-width:1.25rem;height:1.25rem;border-radius:9999px;background:#7f003b;color:#fff;font-size:.6875rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;padding:0 .25rem}
+    .cart-badge[data-cart-count="0"],.cart-badge:empty{display:none}
+    body{padding-top:var(--header-height-mobile)}
+    .container{width:100%;max-width:1280px;margin-inline:auto;padding-inline:1.25rem}
+    @media(min-width:1024px){.main-nav{display:flex;justify-content:center;flex:1}.nav-list{display:flex;align-items:center;gap:1.5rem;list-style:none;margin:0;padding:0}.nav-link{font-size:.875rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#584146}.header-inner{min-height:var(--header-height);padding-inline:4rem}body{padding-top:var(--header-height)}.container{padding-inline:4rem}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+  </style>
+
+  <link rel="stylesheet" href="css/variables.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/reset.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/base.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/utilities.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/header.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/buttons.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/chips.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/cards.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/forms.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/cart-drawer.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/footer.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/pages/revista.css" media="print" onload="this.media='all'">
+
+  <noscript>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/chips.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/cart-drawer.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/pages/revista.css">
+  </noscript>
+  <!-- Schema.org — Blog + BlogPosting + BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "@id": "https://lenesens.com.co/revista.html#blog",
+      "name": "Lenesens Skin Journal",
+      "description": "Dermatología clínica y biotecnología botánica francesa adaptadas al fototipo y clima colombiano.",
+      "url": "https://lenesens.com.co/revista.html",
+      "inLanguage": "es-CO",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Lenesens Cosméticos Colombia"
+      }
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://lenesens.com.co/revista.html#cover-article",
+      "headline": "Por qué se oscurecen las axilas, codos y zonas de fricción: Guía dermatológica integral",
+      "description": "El engrosamiento cutáneo y la hiperpigmentación post-inflamatoria son respuestas naturales al roce constante y al rasurado en seco.",
+      "image": "https://lenesens.com.co/assets/img/blog/cover-hyperpigmentation.png",
+      "datePublished": "2025-02-15",
+      "dateModified": "2025-02-15",
+      "author": {
+        "@type": "Person",
+        "name": "Dra. Camila Restrepo",
+        "jobTitle": "Dermatóloga Aliada Lenesens"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Lenesens Cosméticos Colombia",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://lenesens.com.co/assets/img/brand/logo.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://lenesens.com.co/revista.html"
+      },
+      "articleSection": "Dermatología Clínica",
+      "wordCount": 850,
+      "inLanguage": "es-CO"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "https://lenesens.com.co/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Revista",
+          "item": "https://lenesens.com.co/revista.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- SEO adicional -->
+<link rel="canonical" href="https://lenesens.com.co/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lenesens Hydralight · Suero Corporal Aclarador">
+<meta name="twitter:description" content="Ilumina, hidrata y cuida tu piel con biotecnología botánica francesa adaptada al fototipo latino.">
+<meta name="twitter:image" content="https://lenesens.com.co/assets/img/brand/og-image.jpg">
+<meta name="twitter:site" content="@lenesens">
+<meta name="twitter:creator" content="@lenesens">
+
+<!-- Open Graph extra -->
+<meta property="og:site_name" content="Lenesens Hydralight Colombia">
+<meta property="og:url" content="https://lenesens.com.co/">
+
+<!-- Meta adicionales -->
+<meta name="language" content="Spanish">
+<meta name="geo.region" content="CO">
+<meta name="geo.placename" content="Bogotá">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Lenesens">
+<link rel="canonical" href="https://lenesens.com.co/revista.html">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lenesens Skin Journal · Revista Científica">
+<meta name="twitter:description" content="Investigación dermatológica, rutinas y consejos para iluminar tu piel.">
+<meta name="twitter:image" content="https://lenesens.com.co/assets/img/brand/og-revista.jpg">
+
+<meta property="og:site_name" content="Lenesens Hydralight Colombia">
+<meta property="og:url" content="https://lenesens.com.co/revista.html">
+
+<meta name="language" content="Spanish">
+<meta name="geo.region" content="CO">
+</head>
+
+<body class="page-revista">
+
+  <a href="#main" class="skip-link">Saltar al contenido principal</a>
+  <a href="#site-header" class="skip-link" style="left: 12rem;">Ir a la navegación</a>
+  <a href="#footer" class="skip-link" style="left: 24rem;">Ir al pie de página</a>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand" aria-label="Lenesens Hydralight - Inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-drop"></use></svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">Lenesens</span>
+          <span class="brand-tagline">Hydralight Colombia</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navegación principal">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Inicio</a></li>
+          <li><a href="producto.html" class="nav-link">Hydralight 360°</a></li>
+          <li><a href="catalogo.html" class="nav-link">Catálogo &amp; Packs</a></li>
+          <li><a href="revista.html" class="nav-link is-active" aria-current="page">Revista &amp; Consejos</a></li>
+          <li><a href="index.html#sobre-lenesens" class="nav-link">Sobre Lenesens</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="icon-btn" aria-label="Buscar" data-action="open-search">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-search"></use></svg>
+        </button>
+
+        <div class="currency-switch" role="group" aria-label="Seleccionar moneda">
+          <button type="button" class="currency-option is-active" data-currency="COP">COP</button>
+          <button type="button" class="currency-option" data-currency="USD">USD</button>
+        </div>
+
+        <a href="#cuenta" class="icon-btn" aria-label="Mi cuenta">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-user"></use></svg>
+        </a>
+
+        <button type="button" class="icon-btn cart-btn" aria-label="Bolsa de compra" data-action="open-cart">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-bag"></use></svg>
+          <span class="cart-badge" data-cart-count>0</span>
+        </button>
+
+        <button type="button" class="icon-btn menu-btn" aria-label="Abrir menú" aria-expanded="false" data-action="toggle-menu">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-menu"></use></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <div class="mobile-menu-inner">
+      <button type="button" class="icon-btn close-btn" aria-label="Cerrar menú" data-action="close-menu">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-close"></use></svg>
+      </button>
+      <nav aria-label="Navegación móvil">
+        <ul class="mobile-nav-list">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="producto.html">Hydralight 360°</a></li>
+          <li><a href="catalogo.html">Catálogo &amp; Packs</a></li>
+          <li><a href="revista.html">Revista &amp; Consejos</a></li>
+          <li><a href="index.html#sobre-lenesens">Sobre Lenesens</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main" class="journal-main">
+
+    <section class="journal-masthead" aria-labelledby="journal-title">
+      <div class="journal-masthead-bg" aria-hidden="true">
+        <div class="journal-glow journal-glow-1"></div>
+        <div class="journal-glow journal-glow-2"></div>
+      </div>
+
+      <div class="container">
+        <div class="journal-masthead-content" data-reveal>
+          <div class="journal-edition">
+            <span class="journal-edition-pulse" aria-hidden="true"></span>
+            <span>Edición Nº 14 · Bogotá, Colombia</span>
+          </div>
+
+          <h1 class="journal-title" id="journal-title">
+            Lenesens <em>Skin Journal</em>
+          </h1>
+
+          <p class="journal-subtitle">
+            Ciencia botánica, dermatología de vanguardia y rituales de luminosidad para celebrar tu piel en cada zona.
+          </p>
+
+          <div class="journal-meta">
+            <span class="badge badge-rose">
+              <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-verified"></use></svg>
+              Avalado por Dermatólogos
+            </span>
+            <span class="journal-meta-sep" aria-hidden="true">·</span>
+            <span class="journal-meta-date">Actualizado semanalmente</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="journal-filters" aria-label="Filtros de categorías">
+      <div class="container">
+        <div class="journal-chips chip-scroll" data-journal-filters>
+          <button type="button" class="chip is-active" data-journal-filter="all">
+            Todos los Artículos
+            <span class="chip-count" data-count="all">5</span>
+          </button>
+          <button type="button" class="chip" data-journal-filter="ingredientes">
+            Ingredientes Clave
+            <span class="chip-count" data-count="ingredientes">1</span>
+          </button>
+          <button type="button" class="chip" data-journal-filter="rutinas">
+            Rutinas Corporales
+            <span class="chip-count" data-count="rutinas">1</span>
+          </button>
+          <button type="button" class="chip" data-journal-filter="post-rasurado">
+            Guías Post-Rasurado
+            <span class="chip-count" data-count="post-rasurado">1</span>
+          </button>
+          <button type="button" class="chip" data-journal-filter="mitos">
+            Mitos y Verdades
+            <span class="chip-count" data-count="mitos">1</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="journal-cover" aria-labelledby="cover-title">
+      <div class="container">
+
+        <article class="journal-cover-article" data-journal-card data-categories="ingredientes">
+
+          <div class="journal-cover-visual">
+            <img src="assets/img/blog/cover-hyperpigmentation.png"
+                 alt="Mujer con piel radiante después del tratamiento Hydralight"
+                 loading="lazy" decoding="async">
+            <div class="journal-cover-overlay">
+              <span class="badge badge-primary">Artículo de Portada</span>
+              <span class="badge badge-neutral badge-floating">Despigmentación Segura</span>
+            </div>
+          </div>
+
+          <div class="journal-cover-content">
+            <div class="journal-cover-meta">
+              <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-book"></use></svg>
+              <span>Dermatología Clínica · 5 min de lectura</span>
+            </div>
+
+            <h2 class="journal-cover-title" id="cover-title">
+              Por qué se oscurecen las axilas, codos y zonas de fricción: Guía dermatológica integral
+            </h2>
+
+            <p class="journal-cover-desc">
+              El engrosamiento cutáneo y la hiperpigmentación post-inflamatoria son respuestas naturales al roce constante y al rasurado en seco. Descubre cómo la sinergia molecular de los ácidos Glicólico y Láctico desvanece las manchas oscuras sin alterar la barrera lipídica ni causar irritación.
+            </p>
+
+            <div class="journal-cover-callouts">
+              <div class="journal-callout">
+                <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-flare"></use></svg>
+                <div>
+                  <span class="journal-callout-label">Causa Principal</span>
+                  <span class="journal-callout-value">Micro-fricción dérmica</span>
+                </div>
+              </div>
+              <div class="journal-callout">
+                <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-water"></use></svg>
+                <div>
+                  <span class="journal-callout-label">Solución Lenesens</span>
+                  <span class="journal-callout-value">AHA + Escualano puro</span>
+                </div>
+              </div>
+            </div>
+
+            <footer class="journal-cover-footer">
+              <div class="journal-author">
+                <img src="assets/img/brand/author-camila.jpg"
+                     alt="Dra. Camila Restrepo, Dermatóloga Aliada Lenesens"
+                     width="44" height="44"
+                     loading="lazy" decoding="async"
+                     class="journal-author-avatar">
+                <div>
+                  <strong class="journal-author-name">Dra. Camila Restrepo</strong>
+                  <span class="journal-author-role">Dermatóloga Aliada Lenesens</span>
+                </div>
+              </div>
+
+              <a href="#articulo-completo" class="btn btn-primary">
+                <span>Leer Guía</span>
+                <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-arrow-right"></use></svg>
+              </a>
+            </footer>
+          </div>
+
+        </article>
+
+      </div>
+    </section>
+
+    <section class="journal-recommendation" aria-label="Producto recomendado">
+      <div class="container">
+
+        <div class="journal-recommendation-card" data-reveal>
+
+          <div class="journal-recommendation-image">
+            <img src="assets/img/products/hero-frasco.png"
+                 alt="Hydralight 360° Suero"
+                 loading="lazy" decoding="async">
+          </div>
+
+          <div class="journal-recommendation-body">
+            <span class="journal-recommendation-tag">
+              <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-science"></use></svg>
+              Recomendado en esta guía
+            </span>
+            <h3 class="journal-recommendation-title">Suero Hydralight 360°</h3>
+            <p class="journal-recommendation-desc">
+              Tratamiento micro-iluminador activo con Glicólico 5%, Láctico y Escualano botánico.
+            </p>
+            <div class="journal-recommendation-price">
+              <span class="price-current">$129.900</span>
+              <span class="price-old">$165.000</span>
+            </div>
+          </div>
+
+          <div class="journal-recommendation-actions">
+            <button type="button" class="btn btn-primary btn-block"
+                    data-add-to-cart-card
+                    data-product-id="hydralight-360"
+                    data-product-name="Hydralight 360° Suero 90ml"
+                    data-product-price="129900"
+                    data-product-image="assets/img/products/hero-frasco.png">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-bag"></use></svg>
+              Añadir a la Bolsa
+            </button>
+            <button type="button" class="btn btn-outline btn-block"
+                    data-favorite="hydralight-360-revista"
+                    aria-label="Guardar en favoritos">
+              <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-heart"></use></svg>
+              Guardar
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="journal-grid-section" aria-labelledby="journal-grid-title">
+      <div class="container">
+
+        <header class="journal-grid-header" data-reveal>
+          <div>
+            <span class="overline">Investigación · Consejos · Rutinas</span>
+            <h2 class="journal-grid-title" id="journal-grid-title">Artículos &amp; Guías Recientes</h2>
+          </div>
+          <a href="#archivo" class="journal-grid-link">
+            Ver Todas las Publicaciones
+            <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-arrow-right"></use></svg>
+          </a>
+        </header>
+
+        <div class="journal-grid" data-journal-grid>
+
+          <article class="article-card" data-journal-card data-categories="ingredientes" data-date="2025-02-15" data-rating="4.9">
+            <div class="article-card-image">
+              <span class="badge badge-primary">Ingredientes</span>
+              <img src="assets/img/blog/article-glicolico.png" alt="Infografía de Ácido Glicólico vs Láctico" loading="lazy" decoding="async">
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-meta">
+                <span>4 min lectura</span>
+                <span class="dot">·</span>
+                <span>Por Bioquímica Lenesens</span>
+              </div>
+              <h3 class="article-card-title">
+                Ácido Glicólico vs Ácido Láctico: La combinación perfecta para manchas rebeldes
+              </h3>
+              <p class="article-card-description">
+                Comprende las diferencias moleculares de cada hidroxiácido y por qué su unión en Hydralight evita la irritación común de los peelings tradicionales.
+              </p>
+              <footer class="article-card-footer">
+                <span class="article-card-cta">Leer Artículo</span>
+                <svg class="icon icon-sm article-card-arrow" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-arrow-right"></use></svg>
+              </footer>
+            </div>
+          </article>
+
+          <article class="article-card" data-journal-card data-categories="post-rasurado" data-date="2025-02-20" data-rating="4.8">
+            <div class="article-card-image">
+              <span class="badge badge-gold">Guías Post-Rasurado</span>
+              <img src="assets/img/blog/article-rasurado.png" alt="Piel radiante después del afeitado" loading="lazy" decoding="async">
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-meta">
+                <span>6 min lectura</span>
+                <span class="dot">·</span>
+                <span>Por Dra. Restrepo</span>
+              </div>
+              <h3 class="article-card-title">
+                5 Pasos para calmar y aclarar la piel después del afeitado o depilación láser
+              </h3>
+              <p class="article-card-description">
+                Evita la foliculitis y la sombra oscura post-depilatoria. Una guía protocolar para aplicar suero nutritivo antes de que comience la pigmentación reactiva.
+              </p>
+              <footer class="article-card-footer">
+                <span class="article-card-cta">Leer Artículo</span>
+                <svg class="icon icon-sm article-card-arrow" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-arrow-right"></use></svg>
+              </footer>
+            </div>
+          </article>
+
+          <article class="article-card" data-journal-card data-categories="ingredientes" data-date="2025-01-10" data-rating="4.9">
+            <div class="article-card-image">
+              <span class="badge badge-rose">Ingredientes Clave</span>
+              <img src="assets/img/blog/article-escualano.png" alt="Escualano botánico en suero" loading="lazy" decoding="async">
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-meta">
+                <span>3 min lectura</span>
+                <span class="dot">·</span>
+                <span>Por Comité Científico</span>
+              </div>
+              <h3 class="article-card-title">
+                El Escualano: Por qué tu piel necesita este lípido bio-idéntico de absorción seca
+              </h3>
+              <p class="article-card-description">
+                A diferencia de los aceites comedogénicos pesados, el escualano mimetiza la producción natural de sebo de la piel, sellando la hidratación sin obstruir poros.
+              </p>
+              <footer class="article-card-footer">
+                <span class="article-card-cta">Leer Artículo</span>
+                <svg class="icon icon-sm article-card-arrow" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-arrow-right"></use></svg>
+              </footer>
+            </div>
+          </article>
+
+          <article class="article-card" data-journal-card data-categories="mitos" data-date="2025-01-25" data-rating="4.7">
+            <div class="article-card-image">
+              <span class="badge badge-neutral">Mitos y Verdades</span>
+              <img src="assets/img/blog/article-mitos.png" alt="Zona íntima externa" loading="lazy" decoding="async">
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-meta">
+                <span>7 min lectura</span>
+                <span class="dot">·</span>
+                <span>Por Dra. Restrepo</span>
+              </div>
+              <h3 class="article-card-title">
+                Cuidado seguro de zonas íntimas externas: Lo que debes y no debes aplicar
+              </h3>
+              <p class="article-card-description">
+                Despejamos las dudas más comunes sobre el aclarado en la línea del bikini y entrepierna. Conoce los ingredientes prohibidos y las pautas de pH fisiológico.
+              </p>
+              <footer class="article-card-footer">
+                <span class="article-card-cta">Leer Artículo</span>
+                <svg class="icon icon-sm article-card-arrow" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-arrow-right"></use></svg>
+              </footer>
+            </div>
+          </article>
+
+          <article class="article-card" data-journal-card data-categories="rutinas" data-date="2025-02-05" data-rating="4.9">
+            <div class="article-card-image">
+              <span class="badge badge-primary">Rutinas Corporales</span>
+              <img src="assets/img/blog/article-rutina.png" alt="Rutina nocturna de iluminación" loading="lazy" decoding="async">
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-meta">
+                <span>5 min lectura</span>
+                <span class="dot">·</span>
+                <span>Por Rituales Lenesens</span>
+              </div>
+              <h3 class="article-card-title">
+                La rutina nocturna de 3 pasos para iluminar tu piel mientras duermes
+              </h3>
+              <p class="article-card-description">
+                El ciclo circadiano de la piel favorece la regeneración celular. Descubre cómo sincronizar tus activos para maximizar la luminosidad al despertar.
+              </p>
+              <footer class="article-card-footer">
+                <span class="article-card-cta">Leer Artículo</span>
+                <svg class="icon icon-sm article-card-arrow" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-arrow-right"></use></svg>
+              </footer>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="journal-newsletter section" aria-labelledby="journal-newsletter-title">
+      <div class="container container-narrow">
+        <div class="newsletter-card" data-reveal>
+          <span class="overline">Círculo Privado</span>
+          <h2 id="journal-newsletter-title">Únete al Club Científico Lenesens</h2>
+          <p>Recibe en primicia nuevas investigaciones, guías de aplicación estacional y disfruta de un <strong>10% de bienvenida</strong> en tu primera orden.</p>
+
+          <form class="newsletter-form" data-newsletter-form novalidate>
+            <label for="journal-email" class="visually-hidden">Correo electrónico</label>
+            <input
+              type="email"
+              id="journal-email"
+              name="email"
+              placeholder="Tu correo electrónico..."
+              required
+              autocomplete="email">
+            <button type="submit" class="btn btn-gold">Suscribirme</button>
+          </form>
+
+          <p class="newsletter-note">Sin spam · Cancela cuando quieras</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" id="footer">
+
+    <div class="footer-seals">
+      <div class="container">
+        <ul class="footer-seals-list">
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-leaf"></use></svg> 100% Vegano</li>
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-rabbit"></use></svg> Cruelty Free</li>
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-verified"></use></svg> Clean Beauty</li>
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-flag"></use></svg> Hecho en Colombia</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <a href="index.html" class="brand">
+            <span class="brand-mark" aria-hidden="true">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-drop"></use></svg>
+            </span>
+            <span class="brand-name">Lenesens Hydralight</span>
+          </a>
+          <p>Lujo clínico y sensorialidad suprema formulada para iluminar, restaurar y celebrar la luminosidad natural de tu piel.</p>
+
+          <ul class="social-links" aria-label="Redes sociales">
+            <li><a href="#" aria-label="Instagram"><svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-instagram"></use></svg></a></li>
+            <li><a href="#" aria-label="YouTube"><svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-youtube"></use></svg></a></li>
+            <li><a href="#" aria-label="WhatsApp"><svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-whatsapp"></use></svg></a></li>
+          </ul>
+        </div>
+
+        <nav class="footer-column" aria-labelledby="footer-rituales">
+          <h3 id="footer-rituales">Rituales</h3>
+          <ul>
+            <li><a href="producto.html">Hydralight 360° Suero</a></li>
+            <li><a href="catalogo.html">Tratamiento Axilas &amp; Codos</a></li>
+            <li><a href="catalogo.html">Pack Renovación Íntima</a></li>
+            <li><a href="catalogo.html">Kits de Edición Limitada</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-column" aria-labelledby="footer-experiencia">
+          <h3 id="footer-experiencia">Experiencia</h3>
+          <ul>
+            <li><a href="index.html#sobre-lenesens">Sobre Nuestra Esencia</a></li>
+            <li><a href="revista.html">Guía de Zonas &amp; Rutina</a></li>
+            <li><a href="#envios">Envíos en Colombia</a></li>
+            <li><a href="#faq">Preguntas Frecuentes</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-column footer-newsletter">
+          <h3>El Círculo Privado</h3>
+          <p>Accede a lanzamientos exclusivos y privilegios de preventa.</p>
+          <form class="footer-newsletter-form" data-newsletter-form novalidate>
+            <label for="footer-email" class="visually-hidden">Correo electrónico</label>
+            <input type="email" id="footer-email" placeholder="Tu correo electrónico..." required>
+            <button type="submit" class="btn btn-primary btn-sm">Suscribirme</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span data-current-year>2025</span> Lenesens Cosméticos Colombia S.A.S. Todos los derechos reservados.</p>
+        <ul class="footer-legal">
+          <li><a href="#terminos">Términos &amp; Condiciones</a></li>
+          <li><a href="#privacidad">Política de Privacidad</a></li>
+          <li><a href="#invima">Aviso Legal Invima</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-drawer" id="cart-drawer" hidden>
+    <div class="cart-drawer-panel">
+
+      <div class="cart-drawer-header">
+        <div class="cart-drawer-title">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-bag"></use></svg>
+          <span>Mi Bolsa</span>
+          <span class="cart-drawer-count" data-cart-count>0</span>
+        </div>
+        <button type="button" class="cart-drawer-close" data-action="close-cart" aria-label="Cerrar carrito">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-close"></use></svg>
+        </button>
+      </div>
+
+      <div class="cart-shipping-progress" data-shipping-progress>
+        <div class="cart-shipping-head">
+          <span>Envío Gratis en Colombia</span>
+          <span data-shipping-label>¡Alcanzado!</span>
+        </div>
+        <div class="cart-shipping-bar">
+          <div class="cart-shipping-fill" data-shipping-fill style="width: 0%;"></div>
+        </div>
+        <p class="cart-shipping-note" data-shipping-note>
+          Calificas para despacho prioritario a toda Colombia.
+        </p>
+      </div>
+
+      <ul class="cart-items" data-cart-items></ul>
+
+      <div class="cart-empty" data-cart-empty hidden>
+        <div class="cart-empty-icon">
+          <svg class="icon icon-xl" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-bag"></use></svg>
+        </div>
+        <h3>Tu bolsa está vacía</h3>
+        <p>Añade tus productos favoritos y comienza tu ritual de iluminación.</p>
+        <a href="catalogo.html" class="btn btn-primary" data-action="close-cart">
+          Explorar el catálogo
+        </a>
+      </div>
+
+      <div class="cart-drawer-footer" data-cart-footer hidden>
+
+        <div class="cart-coupon-block" data-coupon-block>
+          <form class="cart-coupon-form" data-coupon-form>
+            <input type="text" name="coupon" placeholder="Cupón de descuento" autocomplete="off">
+            <button type="submit">Aplicar</button>
+          </form>
+          <div class="cart-coupon-tag" data-coupon-tag hidden></div>
+        </div>
+
+        <div class="cart-totals">
+          <div class="cart-totals-row">
+            <span>Subtotal:</span>
+            <span data-cart-subtotal>$0</span>
+          </div>
+          <div class="cart-totals-row">
+            <span>Descuento:</span>
+            <span data-cart-discount>—</span>
+          </div>
+          <div class="cart-totals-row">
+            <span>Envío:</span>
+            <span data-cart-shipping>GRATIS</span>
+          </div>
+          <div class="cart-totals-separator" aria-hidden="true"></div>
+          <div class="cart-totals-final">
+            <span>Total:</span>
+            <strong data-cart-total>$0 COP</strong>
+          </div>
+        </div>
+
+        <a href="checkout.html" class="btn btn-primary">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-lock"></use></svg>
+          Proceder al Pago Seguro
+        </a>
+
+        <p class="cart-drawer-trust">
+          <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-shield-check"></use></svg>
+          Garantía de satisfacción y pago contraentrega
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/utils.js" defer></script>
+  <script src="js/toast.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/header.js" defer></script>
+  <script src="js/newsletter.js" defer></script>
+  <script src="js/revista.js" defer></script>
+  <script src="js/performance.js" defer></script>
+  <script src="js/a11y.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+</body>
+</html>
