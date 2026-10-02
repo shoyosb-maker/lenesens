@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#fbf9f6">
+
+  <title>Checkout Seguro · Lenesens Hydralight Colombia</title>
+  <meta name="description" content="Finaliza tu pedido de Hydralight con pago contraentrega, PSE, tarjeta, Nequi o Addi. Envío asegurado a toda Colombia.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap"
+        media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap">
+  </noscript>
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    html{margin:0;padding:0;-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
+    body{margin:0;padding:0;min-height:100vh;line-height:1.5;font-family:'Montserrat',-apple-system,sans-serif;background:#fbf9f6;color:#1b1c1a}
+    img{max-width:100%;height:auto;display:block}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;cursor:pointer;background:none;border:none}
+    :root{--color-primary:#7f003b;--color-surface:#fbf9f6;--color-on-surface:#1b1c1a;--color-on-surface-variant:#584146;--font-display:'Playfair Display',serif;--font-body:'Montserrat',sans-serif;--radius-full:9999px}
+    .container{width:100%;max-width:1280px;margin-inline:auto;padding-inline:1.25rem}
+    @media(min-width:1024px){.container{padding-inline:4rem}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+  </style>
+
+  <link rel="stylesheet" href="css/variables.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/reset.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/base.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/utilities.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/header.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/buttons.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/chips.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/cards.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/forms.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/cart-drawer.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/components/footer.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/pages/checkout.css" media="print" onload="this.media='all'">
+
+  <noscript>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/chips.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/cart-drawer.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/pages/checkout.css">
+  </noscript>
+  <link rel="canonical" href="https://lenesens.com.co/checkout.html">
+<meta name="language" content="Spanish">
+<meta name="format-detection" content="telephone=no">
+</head>
+
+<body class="page-checkout">
+
+  <a href="#main" class="skip-link">Saltar al contenido principal</a>
+  <a href="#checkout-steps" class="skip-link" style="left: 12rem;">Ir al progreso del pedido</a>
+
+  <header class="checkout-header">
+    <div class="container checkout-header-inner">
+
+      <a href="catalogo.html" class="checkout-back" aria-label="Volver a la tienda">
+        <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-arrow-back"></use></svg>
+        <span class="checkout-back-text">Volver</span>
+      </a>
+
+            <a href="index.html" class="brand checkout-brand" aria-label="Lenesens Hydralight - Inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="assets/favicon/android-chrome-192x192.png" alt="" width="36" height="36" loading="eager" decoding="async">
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">Hydralight</span>
+          <span class="brand-tagline">Colombia · by Lenesens</span>
+        </span>
+      </a>
+
+      <div class="checkout-secure">
+        <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-lock"></use></svg>
+        <span>Checkout Seguro</span>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="main" class="checkout-main">
+
+    <section class="checkout-stepper" id="checkout-steps">
+      <div class="container">
+
+        <ol class="checkout-steps" aria-label="Progreso del pedido">
+          <li class="checkout-step is-done">
+            <span class="checkout-step-marker">
+              <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-check"></use></svg>
+            </span>
+            <span class="checkout-step-label">Datos</span>
+          </li>
+
+          <li class="checkout-step is-done">
+            <span class="checkout-step-marker">
+              <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-check"></use></svg>
+            </span>
+            <span class="checkout-step-label">Envío</span>
+          </li>
+
+          <li class="checkout-step is-active" aria-current="step">
+            <span class="checkout-step-marker">3</span>
+            <span class="checkout-step-label">Pago</span>
+          </li>
+        </ol>
+
+        <div class="checkout-urgency">
+          <div class="checkout-urgency-icon">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-timer"></use></svg>
+          </div>
+          <p class="checkout-urgency-text">
+            Tu reserva está asegurada por:
+            <strong id="checkout-timer">14:48</strong> min
+          </p>
+          <span class="checkout-urgency-tag">Alta demanda en Bogotá y Medellín</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="checkout-content">
+      <div class="container">
+        <div class="checkout-grid">
+
+          <div class="checkout-left">
+
+                        <div class="checkout-address" data-checkout-address>
+
+              <div class="checkout-address-icon">
+                <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-truck"></use></svg>
+              </div>
+
+              <!-- MODO VISTA (lectura) -->
+              <div class="checkout-address-body" data-address-view>
+                <span class="checkout-address-label">Dirección de Entrega Confirmada</span>
+                <h3 class="checkout-address-name" data-address-name>Camila Andrea Gómez</h3>
+                <p class="checkout-address-line" data-address-line>Calle 93B # 14-20, Apto 502 · Chicó Norte</p>
+                <div class="checkout-address-meta">
+                  <span>
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-phone"></use></svg>
+                    <span data-address-phone>+57 312 458 9201</span>
+                  </span>
+                  <span class="checkout-address-dot">·</span>
+                  <span class="checkout-address-city" data-address-city>Bogotá D.C.</span>
+                  <span class="checkout-address-dot">·</span>
+                  <span class="checkout-address-carrier">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-verified"></use></svg>
+                    Coordinadora Express
+                  </span>
+                </div>
+              </div>
+
+              <!-- BOTÓN EDITAR (solo en modo vista) -->
+              <button type="button" class="checkout-address-edit" data-action="edit-address" aria-label="Editar información de entrega">
+                <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-edit"></use></svg>
+                Editar
+              </button>
+
+              <!-- MODO FORMULARIO (edición) -->
+              <form class="checkout-address-form" data-address-form novalidate hidden>
+                <span class="checkout-address-label">Editar Información de Entrega</span>
+
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="addr-name">Nombre completo <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="addr-name" name="name" required autocomplete="name" placeholder="Ej: Camila Andrea Gómez">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="addr-phone">Teléfono / WhatsApp <span class="required">*</span></label>
+                    <input type="tel" class="form-input" id="addr-phone" name="phone" required autocomplete="tel" placeholder="+57 300 000 0000" inputmode="tel">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="addr-address">Dirección completa <span class="required">*</span></label>
+                  <input type="text" class="form-input" id="addr-address" name="address" required autocomplete="street-address" placeholder="Ej: Calle 93B # 14-20, Apto 502 · Chicó Norte">
+                </div>
+
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="addr-city">Ciudad <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="addr-city" name="city" required autocomplete="address-level2" placeholder="Ej: Bogotá D.C.">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="addr-notes">Notas (opcional)</label>
+                    <input type="text" class="form-input" id="addr-notes" name="notes" placeholder="Ej: Dejar en portería" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="checkout-address-form-actions">
+                  <button type="button" class="btn btn-ghost btn-sm" data-action="cancel-address">
+                    Cancelar
+                  </button>
+                  <button type="submit" class="btn btn-primary btn-sm">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-check"></use></svg>
+                    Guardar Cambios
+                  </button>
+                </div>
+              </form>
+
+            </div>
+
+            <div class="checkout-payment">
+              <header class="checkout-payment-header">
+                <div>
+                  <span class="overline">Paso Final del Ritual</span>
+                  <h2 class="checkout-payment-title">Selecciona tu Forma de Pago</h2>
+                </div>
+                <span class="checkout-secure-badge">
+                  <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-lock"></use></svg>
+                  Cifrado 256-Bit
+                </span>
+              </header>
+
+              <div class="payment-methods" role="radiogroup" aria-label="Métodos de pago">
+
+                <label class="payment-method is-active" data-payment-option="cod">
+                  <input type="radio" name="payment_method" value="cod" checked>
+                  <span class="payment-method-radio" aria-hidden="true"></span>
+                  <span class="payment-method-body">
+                    <span class="payment-method-header">
+                      <span class="payment-method-name">
+                        Pago Contraentrega en Efectivo
+                        <span class="payment-method-icon">💵</span>
+                      </span>
+                      <span class="badge badge-primary badge-sm">Más Popular · 0% Riesgo</span>
+                    </span>
+                    <span class="payment-method-desc">
+                      Pagas únicamente al recibir tu producto físico sellado y empacado en la puerta de tu hogar o trabajo.
+                    </span>
+
+                    <span class="payment-method-panel">
+                      <span class="payment-method-note">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-check-circle"></use></svg>
+                        Monto exacto a cancelar: <strong id="cod-amount">$0 COP</strong>
+                      </span>
+                      <span class="payment-method-tip">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-lightbulb"></use></svg>
+                        Ten el efectivo listo. Los mensajeros portan datáfono móvil sujeto a cobertura.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+
+                <label class="payment-method" data-payment-option="pse">
+                  <input type="radio" name="payment_method" value="pse">
+                  <span class="payment-method-radio" aria-hidden="true"></span>
+                  <span class="payment-method-body">
+                    <span class="payment-method-header">
+                      <span class="payment-method-name">PSE / Débito Bancario</span>
+                      <span class="payment-method-tags">
+                        <span class="payment-method-tag">PSE</span>
+                        <span class="payment-method-tag">Bancolombia</span>
+                        <span class="payment-method-tag">Davivienda</span>
+                      </span>
+                    </span>
+                    <span class="payment-method-desc">
+                      Débito directo desde cuentas de ahorro o corriente en todos los bancos de Colombia vía Wompi.
+                    </span>
+
+                    <span class="payment-method-panel">
+                      <label class="form-group" style="text-align:left;">
+                        <span class="form-label">Selecciona tu Entidad Financiera</span>
+                        <select class="form-select" id="pse-bank">
+                          <option value="">Elige un banco...</option>
+                          <option value="bancolombia">Bancolombia</option>
+                          <option value="davivienda">Davivienda</option>
+                          <option value="bogota">Banco de Bogotá</option>
+                          <option value="occidente">Banco de Occidente</option>
+                          <option value="bbva">BBVA Colombia</option>
+                          <option value="scotiabank">Scotiabank Colpatria</option>
+                          <option value="nu">Nu Colombia</option>
+                          <option value="lulo">Lulo Bank</option>
+                        </select>
+                      </label>
+                      <span class="payment-method-tip">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-lock"></use></svg>
+                        Serás redirigido al portal seguro de tu banco para autorizar la transacción.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+
+                <label class="payment-method" data-payment-option="card">
+                  <input type="radio" name="payment_method" value="card">
+                  <span class="payment-method-radio" aria-hidden="true"></span>
+                  <span class="payment-method-body">
+                    <span class="payment-method-header">
+                      <span class="payment-method-name">Tarjeta Débito o Crédito</span>
+                      <span class="payment-method-tags">
+                        <span class="payment-method-tag">VISA</span>
+                        <span class="payment-method-tag">MC</span>
+                        <span class="payment-method-tag">AMEX</span>
+                      </span>
+                    </span>
+                    <span class="payment-method-desc">
+                      Cifrado 3D Secure con tokenización segura. Hasta 12 cuotas sin intereses con bancos aliados.
+                    </span>
+
+                    <span class="payment-method-panel">
+                      <span class="form-group">
+                        <span class="form-label">Número de Tarjeta</span>
+                        <span class="form-input-wrapper">
+                          <input type="text" class="form-input" id="card-number" placeholder="4500 •••• •••• 1234" inputmode="numeric" maxlength="19" autocomplete="cc-number">
+                          <span class="form-input-icon-right">
+                            <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-card"></use></svg>
+                          </span>
+                        </span>
+                      </span>
+                      <span class="form-grid-2">
+                        <span class="form-group">
+                          <span class="form-label">Vencimiento</span>
+                          <input type="text" class="form-input" id="card-expiry" placeholder="MM / AA" maxlength="5" autocomplete="cc-exp">
+                        </span>
+                        <span class="form-group">
+                          <span class="form-label">CVV / CVC</span>
+                          <input type="text" class="form-input" id="card-cvv" placeholder="123" maxlength="4" inputmode="numeric" autocomplete="cc-csc">
+                        </span>
+                      </span>
+                      <span class="form-group">
+                        <span class="form-label">Nombre del Titular</span>
+                        <input type="text" class="form-input" id="card-name" placeholder="Como figura en el plástico" autocomplete="cc-name">
+                      </span>
+                    </span>
+                  </span>
+                </label>
+
+                <label class="payment-method" data-payment-option="nequi">
+                  <input type="radio" name="payment_method" value="nequi">
+                  <span class="payment-method-radio" aria-hidden="true"></span>
+                  <span class="payment-method-body">
+                    <span class="payment-method-header">
+                      <span class="payment-method-name">Nequi o Daviplata</span>
+                      <span class="badge badge-rose badge-sm">Notificación Push</span>
+                    </span>
+                    <span class="payment-method-desc">
+                      Genera una solicitud directa a tu celular para aceptar desde tu app en un toque.
+                    </span>
+
+                    <span class="payment-method-panel">
+                      <span class="form-group">
+                        <span class="form-label">Número Celular de la Billetera</span>
+                        <span class="form-input-wrapper">
+                          <span class="form-input-icon" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; font-weight: 700; color: var(--color-primary);">
+                            +57
+                          </span>
+                          <input type="tel" class="form-input" id="nequi-phone" placeholder="312 458 9201" style="padding-left: 3rem;" inputmode="tel">
+                        </span>
+                      </span>
+                      <span class="payment-method-tip">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-phone"></use></svg>
+                        Recibirás una notificación push en tu app para autorizar el pago.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+
+                <label class="payment-method" data-payment-option="addi">
+                  <input type="radio" name="payment_method" value="addi">
+                  <span class="payment-method-radio" aria-hidden="true"></span>
+                  <span class="payment-method-body">
+                    <span class="payment-method-header">
+                      <span class="payment-method-name">Addi o Sistecredito</span>
+                      <span class="badge badge-gold badge-sm">0% Interés</span>
+                    </span>
+                    <span class="payment-method-desc">
+                      Compra hoy y paga en <strong>3 cuotas quincenales sin papeleo</strong>. Aprobación en 2 minutos con tu cédula.
+                    </span>
+
+                    <span class="payment-method-panel">
+                      <span class="payment-method-note">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-card"></use></svg>
+                        1ra cuota: <strong id="addi-first-installment">$0 COP</strong>
+                      </span>
+                      <span class="payment-method-tip">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-lightbulb"></use></svg>
+                        Solo necesitas tu número de cédula y WhatsApp activo.
+                      </span>
+                    </span>
+                  </span>
+                </label>
+
+              </div>
+            </div>
+
+            <div class="checkout-safety">
+              <svg class="icon icon-lg" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-shield-check"></use></svg>
+              <div>
+                <strong>Compromiso Lenesens Colombia</strong>
+                <span>Todos los pedidos van en caja rígida sellada con precinto holográfico de seguridad.</span>
+              </div>
+            </div>
+
+          </div>
+
+          <aside class="checkout-right">
+            <div class="checkout-summary" id="checkout-summary">
+
+              <div class="checkout-summary-header">
+                <div class="checkout-summary-title">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-bag"></use></svg>
+                  <h2>Resumen de tu Ritual</h2>
+                </div>
+                <span class="checkout-summary-count" data-summary-count>0 Artículos</span>
+              </div>
+
+              <ul class="checkout-summary-items" data-summary-items></ul>
+
+              <div class="checkout-summary-coupon" data-summary-coupon hidden>
+                <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-sell"></use></svg>
+                <span class="checkout-summary-coupon-code" data-summary-coupon-code>—</span>
+                <span class="checkout-summary-coupon-value" data-summary-coupon-value>—</span>
+              </div>
+
+              <div class="checkout-summary-totals">
+                <div class="checkout-summary-row">
+                  <span>Subtotal</span>
+                  <span data-summary-subtotal>$0</span>
+                </div>
+                <div class="checkout-summary-row" data-summary-discount-row hidden>
+                  <span>Descuento Especial</span>
+                  <span class="checkout-summary-discount" data-summary-discount>—</span>
+                </div>
+                <div class="checkout-summary-row">
+                  <span class="checkout-summary-shipping-label">
+                    Envío Nacional Asegurado
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-verified"></use></svg>
+                  </span>
+                  <span class="checkout-summary-shipping" data-summary-shipping>—</span>
+                </div>
+                <div class="checkout-summary-sep" aria-hidden="true"></div>
+                <div class="checkout-summary-final">
+                  <div>
+                    <span class="checkout-summary-final-label">Total a Pagar</span>
+                    <span class="checkout-summary-final-note">IVA 19% incluido · Sin cobros sorpresa</span>
+                  </div>
+                  <strong class="checkout-summary-final-total" data-summary-total>$0 COP</strong>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary btn-block btn-lg checkout-confirm-btn" id="confirm-order-btn">
+                <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-lock"></use></svg>
+                <span data-confirm-btn-label>CONFIRMAR PEDIDO</span>
+                <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-arrow-right"></use></svg>
+              </button>
+
+              <p class="checkout-summary-disclaimer">
+                Al confirmar autorizas el despacho inmediato a tu dirección y aceptas las políticas de privacidad de Lenesens Colombia.
+              </p>
+
+              <div class="checkout-trust-grid">
+                <div class="checkout-trust-badge">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-verified"></use></svg>
+                  <div>
+                    <strong>Invima Vigente</strong>
+                    <span>NSOC19842-23CO</span>
+                  </div>
+                </div>
+                <div class="checkout-trust-badge">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-assignment-return"></use></svg>
+                  <div>
+                    <strong>Garantía 30 Días</strong>
+                    <span>Resultados visibles</span>
+                  </div>
+                </div>
+                <div class="checkout-trust-badge">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-lock"></use></svg>
+                  <div>
+                    <strong>Checkout Seguro</strong>
+                    <span>Protocolo SSL 256-Bit</span>
+                  </div>
+                </div>
+                <div class="checkout-trust-badge">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-chat"></use></svg>
+                  <div>
+                    <strong>Asesoría WhatsApp</strong>
+                    <span>+57 300 912 8400</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="checkout-summary-testimonial">
+                <img src="assets/img/lifestyle/testimonial-1.jpg"
+                     alt=""
+                     width="40" height="40"
+                     loading="lazy" decoding="async">
+                <div>
+                  <div class="checkout-summary-stars">★★★★★ <strong>4.9/5</strong></div>
+                  <p>"Las manchas de las axilas se atenuaron desde la segunda semana."</p>
+                  <span>Valentina R. · Medellín</span>
+                </div>
+              </div>
+
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="checkout-footer">
+    <div class="container checkout-footer-inner">
+      <p>© <span data-current-year>2025</span> Lenesens Cosméticos Colombia S.A.S.</p>
+      <ul class="checkout-footer-links">
+        <li><a href="#terminos">Términos</a></li>
+        <li><a href="#privacidad">Privacidad</a></li>
+        <li><a href="#envios">Envíos</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/utils.js" defer></script>
+  <script src="js/toast.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/newsletter.js" defer></script>
+  <script src="js/checkout.js" defer></script>
+  <script src="js/performance.js" defer></script>
+  <script src="js/a11y.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+</body>
+</html>
