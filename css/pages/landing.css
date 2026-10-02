@@ -1,0 +1,1096 @@
+/* ============================================================
+   LANDING — Estilos específicos de la página de inicio
+   Lenesens Hydralight
+   Hero, brand seals, ingredients, zones, testimonials, offer,
+   about y newsletter.
+   ============================================================ */
+
+/* ============================================================
+   PARTE 1 — HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-lg) var(--space-xl);
+
+  /* Fondo con gradiente suave */
+  background: linear-gradient(
+    180deg,
+    var(--color-surface) 0%,
+    var(--color-surface-container-low) 50%,
+    var(--color-surface) 100%
+  );
+}
+
+/* Halos decorativos (los blobs de gradiente) */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: var(--radius-full);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::before {
+  top: -6rem;
+  left: 25%;
+  width: 24rem;
+  height: 24rem;
+  background: rgba(255, 217, 224, 0.5);
+}
+
+.hero::after {
+  top: 40%;
+  right: 2.5rem;
+  width: 20rem;
+  height: 20rem;
+  background: rgba(255, 224, 136, 0.35);
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Grid del hero: 1 columna en móvil, 12 cols en desktop */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 7fr 5fr;
+    gap: var(--gutter-lg);
+    align-items: center;
+  }
+}
+
+/* ---------------------------------------------------------
+   Columna de texto
+   --------------------------------------------------------- */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.hero-content .overline {
+  align-self: flex-start;
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 217, 224, 0.5);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-hero-mobile);
+  line-height: var(--lh-display-hero-mobile);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-snug);
+  color: var(--color-primary);
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: var(--fw-regular);
+  color: var(--color-primary);
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: var(--fs-display-hero);
+    line-height: var(--lh-display-hero);
+    letter-spacing: var(--ls-tight);
+  }
+}
+
+.hero-description {
+  max-width: 36rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+  color: var(--color-on-surface-variant);
+}
+
+/* ---------------------------------------------------------
+   Badges de credenciales
+   --------------------------------------------------------- */
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+  padding-block: var(--space-xs);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+
+  font-family: var(--font-body);
+  font-size: var(--fs-label-md);
+  font-weight: var(--fw-semibold);
+  color: var(--color-on-surface);
+}
+
+.hero-badge img,
+.hero-badge svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0.375rem;
+  border-radius: var(--radius-full);
+  background: var(--color-secondary-fixed);
+  object-fit: contain;
+}
+
+.hero-badge:nth-child(2) img {
+  background: var(--color-tertiary-fixed);
+}
+
+.hero-badge:nth-child(3) img {
+  background: var(--color-surface-container-high);
+}
+
+/* ---------------------------------------------------------
+   CTAs del hero
+   --------------------------------------------------------- */
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-top: var(--space-sm);
+}
+
+@media (min-width: 640px) {
+  .hero-cta {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* Nota de envío */
+.hero-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.hero-note img,
+.hero-note svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  object-fit: contain;
+  opacity: 0.7;
+}
+
+/* ---------------------------------------------------------
+   Columna visual (imagen + floating cards)
+   --------------------------------------------------------- */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.product-showcase {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+
+  padding: var(--space-sm);
+  border-radius: var(--radius-2xl);
+  background: var(--color-surface-container-lowest);
+
+  box-shadow:
+    0 20px 50px rgba(166, 19, 82, 0.12),
+    0 4px 12px rgba(43, 29, 35, 0.04);
+}
+
+.product-showcase > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+
+  transition: transform var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-showcase:hover > img {
+  transform: scale(1.03);
+}
+
+/* Tarjeta flotante: Eficacia clínica */
+.floating-card {
+  position: absolute;
+  left: var(--space-md);
+  right: var(--space-md);
+  bottom: var(--space-md);
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+
+  padding: var(--space-md);
+
+  border-radius: var(--radius-lg);
+  background: rgba(251, 249, 246, 0.9);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 32px rgba(166, 19, 82, 0.18);
+}
+
+.floating-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.floating-card-icon img,
+.floating-card-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.floating-card-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.floating-card-desc {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  color: var(--color-on-surface-variant);
+  line-height: 1.4;
+  margin-top: 0.125rem;
+}
+
+/* Badge superior flotante */
+.floating-badge {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  padding: 0.375rem 0.75rem;
+
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* ============================================================
+   PARTE 2 — BRAND SEALS (franja de credenciales)
+   ============================================================ */
+.brand-seals {
+  padding-block: var(--space-lg);
+  background: var(--color-surface-container-low);
+}
+
+.seals-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+@media (min-width: 640px) {
+  .seals-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .seals-list {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.seal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-xs);
+
+  padding: var(--space-md);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+
+  transition: transform var(--transition-base);
+}
+
+.seal:hover {
+  transform: translateY(-4px);
+}
+
+/* La 5ta seal ocupa 2 columnas en móvil, 1 en desktop */
+.seal:last-child {
+  grid-column: span 2;
+}
+
+@media (min-width: 640px) {
+  .seal:last-child {
+    grid-column: span 1;
+  }
+}
+
+.seal img,
+.seal svg {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.625rem;
+  border-radius: var(--radius-full);
+  background: var(--color-secondary-fixed);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Variación de colores por seal */
+.seal:nth-child(2) img { background: var(--color-tertiary-fixed); }
+.seal:nth-child(3) img { background: var(--color-secondary-fixed); }
+.seal:nth-child(4) img { background: var(--color-tertiary-fixed); }
+.seal:nth-child(5) img { background: var(--color-secondary-fixed); }
+
+.seal strong {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.seal span {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  color: var(--color-on-surface-variant);
+  line-height: 1.4;
+}
+
+
+/* ============================================================
+   PARTE 3 — SECTION HEADERS (compartido por secciones)
+   ============================================================ */
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-xs);
+
+  max-width: 48rem;
+  margin-inline: auto;
+  margin-bottom: var(--space-xl);
+}
+
+.section-header .overline {
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 217, 224, 0.4);
+}
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg-mobile);
+  line-height: var(--lh-headline-lg-mobile);
+  font-weight: var(--fw-semibold);
+  color: var(--color-primary);
+  margin-top: var(--space-xs);
+}
+
+@media (min-width: 1024px) {
+  .section-header h2 {
+    font-size: var(--fs-headline-lg);
+    line-height: var(--lh-headline-lg);
+  }
+}
+
+.section-header h2 em {
+  font-style: italic;
+  font-weight: var(--fw-regular);
+  color: var(--color-secondary);
+}
+
+.section-description {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+  color: var(--color-on-surface-variant);
+  max-width: 40rem;
+  margin-top: var(--space-xs);
+}
+
+
+/* ============================================================
+   PARTE 4 — INGREDIENTS SECTION (overrides específicos)
+   ============================================================ */
+.ingredients {
+  background: var(--color-surface);
+}
+
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .ingredients-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ingredients-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+
+/* ============================================================
+   PARTE 5 — ZONES PREVIEW (5 zonas con número)
+   ============================================================ */
+.zones-preview {
+  background: var(--color-surface-container);
+}
+
+.zones-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .zones-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .zones-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.zone-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+
+  padding: var(--space-lg);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.zone-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Número circular */
+.zone-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+
+  width: 2.25rem;
+  height: 2.25rem;
+
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: var(--fw-bold);
+
+  box-shadow: 0 4px 12px rgba(127, 0, 59, 0.2);
+}
+
+.zone-item h3 {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  line-height: 1.3;
+  margin-top: var(--space-xs);
+}
+
+.zone-item p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body-md);
+  color: var(--color-on-surface-variant);
+}
+
+/* Tarjeta especial de "Ritual Lenesens" (la 6ta posición) */
+.zone-item.zone-ritual {
+  background: var(--gradient-primary);
+  color: var(--color-on-primary);
+}
+
+.zone-item.zone-ritual h3,
+.zone-item.zone-ritual p {
+  color: var(--color-on-primary);
+}
+
+.zone-item.zone-ritual h3 {
+  font-size: 1.25rem;
+}
+
+.zone-item.zone-ritual p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+
+/* ============================================================
+   PARTE 6 — TESTIMONIALS
+   ============================================================ */
+.testimonials {
+  background: var(--color-surface);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* ============================================================
+   PARTE 7 — SPECIAL OFFER (oferta dúo con countdown)
+   ============================================================ */
+.special-offer {
+  padding-block: var(--space-xl);
+  background: var(--gradient-oferta);
+  color: var(--color-on-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Halo decorativo */
+.special-offer::before {
+  content: "";
+  position: absolute;
+  bottom: -6rem;
+  right: -6rem;
+  width: 24rem;
+  height: 24rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 224, 136, 0.15);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.special-offer .container {
+  position: relative;
+  z-index: 1;
+}
+
+.offer-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .offer-card {
+    grid-template-columns: 7fr 5fr;
+    gap: var(--gutter-lg);
+  }
+}
+
+/* ---------------------------------------------------------
+   Contenido (columna izquierda)
+   --------------------------------------------------------- */
+.offer-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.offer-badge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  color: var(--color-tertiary-fixed);
+}
+
+.offer-content h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: var(--fw-bold);
+  color: var(--color-on-primary);
+}
+
+@media (min-width: 1024px) {
+  .offer-content h2 {
+    font-size: 2.75rem;
+  }
+}
+
+.offer-content p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 32rem;
+}
+
+.offer-content strong {
+  font-weight: var(--fw-bold);
+  color: var(--color-on-primary);
+}
+
+/* Precios */
+.offer-pricing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding-top: var(--space-sm);
+}
+
+.price-current {
+  font-family: var(--font-display);
+  font-size: 2.375rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-tertiary-fixed);
+  line-height: 1;
+}
+
+.price-old {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: line-through;
+}
+
+.price-save {
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: var(--color-tertiary-fixed);
+  color: var(--color-on-tertiary-fixed);
+
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------
+   Countdown
+   --------------------------------------------------------- */
+.offer-countdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-top: var(--space-sm);
+}
+
+.countdown-label {
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.countdown-blocks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.countdown-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+
+  min-width: 4.375rem;
+  padding: var(--space-sm);
+
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.countdown-value {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-on-primary);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-unit {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.countdown-sep {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: var(--fw-bold);
+  color: var(--color-tertiary-fixed);
+  line-height: 1;
+}
+
+/* ---------------------------------------------------------
+   Tarjeta de acción (columna derecha)
+   --------------------------------------------------------- */
+.offer-action {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+
+  padding: var(--space-lg);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-container-lowest);
+  color: var(--color-on-surface);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+
+  text-align: center;
+}
+
+.offer-action-badge {
+  display: inline-block;
+  align-self: center;
+
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: var(--color-secondary-fixed);
+  color: var(--color-primary);
+
+  font-family: var(--font-body);
+  font-size: var(--fs-label-tag);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+}
+
+.offer-action h3 {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: var(--fw-medium);
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.offer-action p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  color: var(--color-on-surface-variant);
+  line-height: 1.5;
+}
+
+/* Lista de features */
+.offer-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-block: var(--space-sm);
+  border-top: 1px solid var(--color-surface-container);
+  border-bottom: 1px solid var(--color-surface-container);
+  text-align: left;
+}
+
+.offer-features li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.offer-features li strong {
+  color: var(--color-on-surface);
+  font-weight: var(--fw-semibold);
+}
+
+.offer-features li strong.text-tertiary {
+  color: var(--color-tertiary);
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  letter-spacing: var(--ls-tag);
+}
+
+/* Nota de trust */
+.offer-trust {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  color: var(--color-on-surface-variant);
+}
+
+.offer-trust img,
+.offer-trust svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  object-fit: contain;
+  opacity: 0.7;
+}
+
+
+/* ============================================================
+   PARTE 8 — ABOUT LENESENS
+   ============================================================ */
+.about {
+  background: var(--color-surface);
+}
+
+.about .container {
+  text-align: center;
+}
+
+.about h2 {
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.about .lead {
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+
+/* ============================================================
+   PARTE 9 — NEWSLETTER (bloque final)
+   ============================================================ */
+.newsletter {
+  background: var(--color-surface);
+  padding-bottom: var(--space-xl);
+}
+
+.newsletter-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+
+  padding: var(--space-xl) var(--space-lg);
+
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-container) 100%);
+  color: var(--color-on-primary);
+  box-shadow: 0 20px 50px rgba(127, 0, 59, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Halo decorativo */
+.newsletter-card::before {
+  content: "";
+  position: absolute;
+  top: -5rem;
+  right: -5rem;
+  width: 16rem;
+  height: 16rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.1);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.newsletter-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.newsletter-card .overline {
+  color: var(--color-tertiary-fixed);
+}
+
+.newsletter-card h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  font-weight: var(--fw-semibold);
+  color: var(--color-on-primary);
+  line-height: 1.2;
+  margin-top: var(--space-xs);
+}
+
+.newsletter-card p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body-md);
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 32rem;
+}
+
+.newsletter-card p strong {
+  color: var(--color-tertiary-fixed);
+  font-weight: var(--fw-bold);
+}
+
+.newsletter-card .newsletter-form {
+  margin-top: var(--space-sm);
+  max-width: 28rem;
+  width: 100%;
+}
+
+.newsletter-note {
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   PARTE 10 — RESPONSIVE AJUSTES FINOS
+   ============================================================ */
+@media (max-width: 480px) {
+  .hero {
+    padding-block: var(--space-md) var(--space-lg);
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+
+  .hero-badges {
+    gap: var(--space-sm);
+  }
+
+  .hero-badge {
+    font-size: 0.6875rem;
+  }
+
+  .product-showcase {
+    max-width: 100%;
+  }
+
+  .floating-card {
+    left: var(--space-sm);
+    right: var(--space-sm);
+    bottom: var(--space-sm);
+    padding: var(--space-sm);
+  }
+
+  .floating-card-title {
+    font-size: 1rem;
+  }
+
+  .offer-content h2 {
+    font-size: 1.75rem;
+  }
+
+  .price-current {
+    font-size: 1.75rem;
+  }
+
+  .countdown-block {
+    min-width: 3.75rem;
+    padding: var(--space-xs);
+  }
+
+  .countdown-value {
+    font-size: 1.125rem;
+  }
+}
+
+
+/* ============================================================
+   PARTE 11 — REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .product-showcase:hover > img,
+  .seal:hover,
+  .zone-item:hover {
+    transform: none;
+  }
+}
