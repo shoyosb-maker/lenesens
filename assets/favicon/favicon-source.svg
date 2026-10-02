@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <defs>
-    <linearGradient id="favGrad" ...>
-      ...
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="112" fill="url(#favGrad)"/>
-  <path d="M256 96C256 96 144 232..." fill="#ffd9e0"/>
-</svg>
