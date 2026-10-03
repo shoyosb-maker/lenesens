@@ -1,0 +1,139 @@
+/* =============================================
+   FLOATING CART — Burbuja flotante del carrito
+   ============================================= */
+.floating-cart {
+  position: fixed;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom, 0));
+  right: 1.25rem;
+  z-index: 40;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem;
+  height: 3.75rem;
+
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  color: var(--color-on-primary);
+
+  box-shadow:
+    0 8px 24px rgba(166, 19, 82, 0.35),
+    0 0 0 4px rgba(255, 217, 224, 0.4);
+
+  cursor: pointer;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.floating-cart:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    0 12px 32px rgba(166, 19, 82, 0.45),
+    0 0 0 4px rgba(255, 217, 224, 0.6);
+}
+
+.floating-cart:active {
+  transform: scale(0.94);
+}
+
+.floating-cart:focus-visible {
+  outline: none;
+  box-shadow:
+    0 8px 24px rgba(166, 19, 82, 0.35),
+    0 0 0 4px var(--color-gold);
+}
+
+.floating-cart .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* Badge de cantidad (contraste sobre el magenta) */
+.floating-cart .cart-badge {
+  position: absolute;
+  top: -0.125rem;
+  right: -0.125rem;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.375rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius-full);
+  background: #ffffff;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+
+  transition: transform var(--transition-base);
+}
+
+.floating-cart .cart-badge[data-cart-count="0"],
+.floating-cart .cart-badge:empty {
+  display: none;
+}
+
+.floating-cart .cart-badge.is-bumping {
+  animation: cart-bump 0.4s ease;
+}
+
+@keyframes cart-bump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+/* En móvil, un poco más pequeño */
+@media (max-width: 480px) {
+  .floating-cart {
+    width: 3.25rem;
+    height: 3.25rem;
+    right: 1rem;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0));
+  }
+  .floating-cart .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .floating-cart .cart-badge {
+    min-width: 1.25rem;
+    height: 1.25rem;
+    font-size: 0.6875rem;
+  }
+}
+
+/* Ajustes para páginas con contenido fijo abajo */
+body.page-producto .floating-cart {
+  /* En la ficha de producto, subirlo para no chocar con la sticky bar */
+  bottom: calc(5.5rem + env(safe-area-inset-bottom, 0));
+}
+
+body.page-checkout .floating-cart {
+  /* En checkout, el carrito no aplica */
+  display: none;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .floating-cart,
+  .floating-cart:hover,
+  .floating-cart:active {
+    transform: none;
+  }
+  .floating-cart .cart-badge.is-bumping {
+    animation: none;
+  }
+}
