@@ -1775,3 +1775,429 @@
   vertical-align: middle;
   align-self: center;
 }
+/* ============================================================
+   CHECKOUT — FIX RESPONSIVE MÓVIL
+   Evita desbordes en stepper, payment methods, inputs, summary
+   y trust badges en pantallas pequeñas.
+   ============================================================ */
+
+/* 1. Prevenir overflow global */
+.checkout-main,
+.checkout-grid,
+.checkout-left,
+.checkout-right,
+.checkout-summary,
+.payment-method,
+.payment-method-body,
+.checkout-address {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.checkout-header-inner {
+  min-width: 0;
+}
+
+/* 2. Header compacto en móvil */
+@media (max-width: 640px) {
+  .checkout-header-inner {
+    gap: var(--space-sm);
+    padding-inline: 1rem;
+  }
+
+  .checkout-brand .brand-text {
+    display: none;
+  }
+
+  .checkout-secure span {
+    display: none;
+  }
+
+  .checkout-secure {
+    padding: 0.5rem;
+  }
+}
+
+/* 3. Stepper más compacto */
+@media (max-width: 480px) {
+  .checkout-steps {
+    gap: var(--space-xs);
+    justify-content: center;
+  }
+
+  .checkout-step {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.5625rem;
+    gap: 0.25rem;
+  }
+
+  .checkout-step-marker {
+    width: 1.375rem;
+    height: 1.375rem;
+    font-size: 0.625rem;
+  }
+
+  .checkout-step + .checkout-step::before {
+    width: 0.5rem;
+    margin-right: 0.125rem;
+  }
+
+  .checkout-step-label {
+    font-size: 0.5625rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* 4. Banner de urgencia — evitar que se desborde */
+.checkout-urgency {
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+@media (max-width: 640px) {
+  .checkout-urgency {
+    border-radius: var(--radius-xl);
+    padding: var(--space-sm);
+    gap: 0.375rem;
+  }
+
+  .checkout-urgency-text {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .checkout-urgency-text strong {
+    padding: 0.0625rem 0.375rem;
+    font-size: 0.75rem;
+  }
+
+  .checkout-urgency-tag {
+    display: none;
+  }
+
+  .checkout-urgency-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+/* 5. Bloque de dirección — texto largo */
+.checkout-address-body,
+.checkout-address-name,
+.checkout-address-line {
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 480px) {
+  .checkout-address {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+  }
+
+  .checkout-address-icon {
+    display: none;
+  }
+
+  .checkout-address-edit {
+    align-self: flex-start;
+  }
+
+  .checkout-address-meta {
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+  }
+}
+
+/* 6. Payment methods — header y tags */
+.payment-method {
+  padding: var(--space-md);
+}
+
+.payment-method-header,
+.payment-method-name {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.payment-method-title-row {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .payment-method {
+    padding: var(--space-sm) var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  .payment-method-name {
+    font-size: 0.9375rem;
+    gap: 0.25rem;
+  }
+
+  .payment-method-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+  }
+
+  .payment-method-desc {
+    font-size: 0.75rem;
+  }
+
+  .payment-method-tag {
+    font-size: 0.5rem;
+    padding: 0.0625rem 0.375rem;
+  }
+
+  .payment-method-panel {
+    margin-top: var(--space-xs);
+    padding-top: var(--space-sm);
+  }
+
+  .payment-method-note,
+  .payment-method-tip {
+    font-size: 0.6875rem;
+    line-height: 1.4;
+  }
+
+  .payment-method-note strong {
+    font-size: 0.75rem;
+  }
+}
+
+/* 7. Inputs de tarjeta y PSE — que no se desborden */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+}
+
+.form-input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+
+.form-input,
+.form-select {
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* 8. Payment safety note */
+.checkout-safety {
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+@media (max-width: 480px) {
+  .checkout-safety {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .checkout-safety svg,
+  .checkout-safety .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .checkout-safety strong {
+    font-size: 0.8125rem;
+  }
+
+  .checkout-safety span {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+}
+
+/* 9. Resumen — items, totales, trust badges */
+.checkout-summary-item,
+.checkout-summary-item-body,
+.checkout-summary-item-name {
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 480px) {
+  .checkout-summary {
+    padding: var(--space-md);
+  }
+
+  .checkout-summary-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .checkout-summary-title h2 {
+    font-size: 1rem;
+  }
+
+  .checkout-summary-count {
+    font-size: 0.5625rem;
+    padding: 0.1875rem 0.5rem;
+  }
+
+  .checkout-summary-item {
+    padding: var(--space-xs);
+  }
+
+  .checkout-summary-item-image {
+    width: 3rem;
+    height: 3.5rem;
+  }
+
+  .checkout-summary-item-name {
+    font-size: 0.8125rem;
+  }
+
+  .checkout-summary-item-variant,
+  .checkout-summary-item-price-old {
+    font-size: 0.6875rem;
+  }
+
+  .checkout-summary-item-price-current {
+    font-size: 0.8125rem;
+  }
+
+  .checkout-summary-row {
+    font-size: 0.75rem;
+  }
+
+  .checkout-summary-final-total {
+    font-size: 1.25rem;
+  }
+
+  .checkout-summary-final-label {
+    font-size: 0.8125rem;
+  }
+
+  .checkout-summary-final-note {
+    font-size: 0.625rem;
+  }
+
+  .checkout-summary-disclaimer {
+    font-size: 0.625rem;
+  }
+
+  /* Trust badges a 1 columna */
+  .checkout-trust-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+
+  .checkout-trust-badge {
+    padding: 0.5rem 0.625rem;
+  }
+
+  .checkout-trust-badge strong {
+    font-size: 0.5625rem;
+  }
+
+  .checkout-trust-badge span {
+    font-size: 0.5625rem;
+  }
+
+  /* Testimonial mini */
+  .checkout-summary-testimonial {
+    padding: var(--space-xs);
+  }
+
+  .checkout-summary-testimonial p {
+    font-size: 0.6875rem;
+  }
+
+  .checkout-summary-stars {
+    font-size: 0.6875rem;
+  }
+
+  .checkout-summary-testimonial span {
+    font-size: 0.5625rem;
+  }
+
+  /* Botón confirmar */
+  .checkout-confirm-btn {
+    padding: var(--space-sm);
+    font-size: 0.75rem;
+    gap: 0.375rem;
+  }
+
+  .checkout-confirm-btn .icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+/* 10. Checkout content padding en móvil */
+@media (max-width: 640px) {
+  .checkout-content {
+    padding-block: var(--space-md) var(--space-lg);
+  }
+
+  .checkout-grid {
+    gap: var(--space-md);
+  }
+
+  .checkout-left,
+  .checkout-right {
+    gap: var(--space-md);
+  }
+}
+
+/* 11. Móvil muy pequeño (320-360px) */
+@media (max-width: 360px) {
+  .checkout-step-label {
+    display: none;
+  }
+
+  .checkout-step.is-active .checkout-step-label {
+    display: inline;
+  }
+
+  .checkout-summary-final-total {
+    font-size: 1.125rem;
+  }
+
+  .payment-method-name {
+    font-size: 0.875rem;
+  }
+}
+
+/* 12. Formulario de dirección editable */
+.checkout-address-form,
+.checkout-address-form .form-group,
+.checkout-address-form .form-input {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .checkout-address-form .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-address-form-actions {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+
+  .checkout-address-form-actions .btn {
+    width: 100%;
+  }
+}
