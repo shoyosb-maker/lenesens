@@ -1,0 +1,1561 @@
+/* ============================================================
+   LANDING ORBITAL — Escenario audiovisual con navegación flotante
+   Lenesens Hydralight
+   ============================================================ */
+
+:root {
+  /* La landing no tiene header fijo: el ancla #reveal debe quedar
+     exactamente al inicio de la escena. */
+  scroll-padding-top: 0;
+
+  --orbital-bg: #08050a;
+  --orbital-ink: #f7eef2;
+  --orbital-muted: rgba(247, 238, 242, 0.62);
+  --orbital-line: rgba(255, 255, 255, 0.14);
+  --orbital-glass: rgba(22, 12, 18, 0.62);
+  --orbital-rose: #f0a9c4;
+}
+
+.orbital-body {
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--orbital-bg);
+  color: var(--orbital-ink);
+  font-family: var(--font-body, 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif);
+}
+
+/* La escena bloquea el scroll mientras corre el video, en ambos sentidos.
+   No se usa overflow:hidden aquí porque rompe position:sticky y deja
+   el escenario arriba con un hueco debajo. El bloqueo es por eventos. */
+html.is-reveal-scroll-locked,
+html.is-reveal-scroll-locked body {
+  overscroll-behavior: none;
+}
+
+.orbital-reveal {
+  overflow-anchor: none;
+}
+
+.orbital-body img,
+.orbital-body video {
+  display: block;
+  max-width: none;
+}
+
+/* ---------------------------------------------------------
+   Accesibilidad
+   --------------------------------------------------------- */
+.orbital-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.orbital-skip {
+  position: absolute;
+  top: -5rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-full, 9999px);
+  background: #ffffff;
+  color: #3b1b2b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.orbital-skip:focus {
+  top: 1rem;
+}
+
+.orbital a:focus-visible,
+.orbital button:focus-visible {
+  outline: 2px solid var(--orbital-rose);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------
+   Escenario
+   --------------------------------------------------------- */
+.orbital {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 30rem;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--orbital-bg);
+}
+
+.orbital-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.orbital-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 46%;
+  opacity: 0;
+  transition:
+    opacity 1s ease,
+    filter 0.8s ease,
+    transform 1.4s ease;
+  will-change: opacity, transform;
+}
+
+.orbital-video.is-active {
+  opacity: 1;
+}
+
+/* Marca que aparece al final del video del ritual (solo móvil) */
+.orbital-sign {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+
+  display: none;
+  width: min(100%, 100vh);
+  pointer-events: none;
+
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+
+  filter: drop-shadow(0 20px 46px rgba(0, 0, 0, 0.4));
+}
+
+.orbital-sign img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.orbital-sign.is-visible {
+  opacity: 0.38;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@media (max-width: 900px) {
+  .orbital-sign {
+    display: block;
+  }
+}
+
+/* Tratamiento de color y legibilidad */
+.orbital-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(127, 0, 59, 0.2), rgba(30, 0, 18, 0.22));
+  mix-blend-mode: soft-light;
+}
+
+.orbital-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 5, 8, 0.78) 0%,
+    rgba(8, 5, 8, 0.24) 15%,
+    rgba(8, 5, 8, 0) 34%,
+    rgba(8, 5, 8, 0) 60%,
+    rgba(8, 5, 8, 0.5) 85%,
+    rgba(8, 5, 8, 0.9) 100%
+  );
+}
+
+.orbital-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    125% 100% at 50% 44%,
+    rgba(0, 0, 0, 0) 35%,
+    rgba(6, 3, 8, 0.45) 72%,
+    rgba(3, 1, 4, 0.88) 100%
+  );
+}
+
+/* ---------------------------------------------------------
+   Barra superior
+   --------------------------------------------------------- */
+.orbital-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  padding: clamp(1rem, 2.2vw, 1.6rem) clamp(1.1rem, 3.6vw, 2.75rem);
+}
+
+.orbital-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.orbital-brand-mark {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.orbital-brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.orbital-brand-name {
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.orbital-brand-sub {
+  font-size: 0.5rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--orbital-muted);
+}
+
+.orbital-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.orbital-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.1rem;
+  padding: 0 1rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(241, 236, 234, 0.88);
+  color: #3b1b2b;
+
+  font-family: inherit;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.orbital-chip:hover {
+  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Acceso al panel administrativo */
+.orbital-chip--icon {
+  width: 2.1rem;
+  min-width: 2.1rem;
+  padding: 0;
+  color: #7f003b;
+}
+
+.orbital-chip--icon .orbital-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.orbital-currency {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(241, 236, 234, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.orbital-currency .orbital-chip {
+  min-height: 1.7rem;
+  padding: 0 0.8rem;
+  border: 0;
+  background: transparent;
+  color: #4a2b3a;
+}
+
+.orbital-currency .orbital-chip.is-active {
+  background: rgba(58, 37, 48, 0.92);
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------
+   Navegación principal — a los costados en la primera escena
+   y arriba a la derecha durante el recorrido
+   --------------------------------------------------------- */
+.orbital-orbit {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 clamp(1rem, 3.4vw, 3.25rem) clamp(6.5rem, 14vh, 9rem);
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+/* Al hacer scroll el menú se desvanece y reaparece al llegar al 2.º video.
+   Aplica igual en escritorio y en móvil. */
+.orbital-orbit.is-scrolled {
+  opacity: 0;
+}
+
+.orbital-orbit.is-scrolled .orbital-rail,
+.orbital-orbit.is-scrolled .orbital-option {
+  pointer-events: none;
+}
+
+/* Atenuado lateral: da contraste a las opciones sobre el video del hero. */
+.orbital-orbit::before,
+.orbital-orbit::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(8rem, 22vw, 21rem);
+  pointer-events: none;
+}
+
+.orbital-orbit::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(6, 3, 8, 0.8), rgba(6, 3, 8, 0.34) 45%, rgba(6, 3, 8, 0));
+}
+
+.orbital-orbit::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(6, 3, 8, 0.8), rgba(6, 3, 8, 0.34) 45%, rgba(6, 3, 8, 0));
+}
+
+.orbital-rail {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.35rem, 3.4vh, 2.6rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: auto;
+}
+
+.orbital-rail--end {
+  align-items: flex-end;
+}
+
+@media (min-width: 901px) {
+  /* Segunda escena: reaparece con un fundido en su sitio de arriba a la
+     derecha (no se desliza acompañando el scroll). */
+  .orbital-orbit.is-top {
+    inset: auto;
+    top: clamp(4.6rem, 7.5vh, 5.8rem);
+    right: clamp(1.25rem, 3.4vw, 3.25rem);
+    width: max-content;
+    max-width: calc(100% - 2rem);
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(1rem, 2vw, 1.75rem);
+    padding: 0;
+  }
+
+  .orbital-orbit.is-top:not(.is-scrolled) {
+    animation: orbital-nav-appear 0.4s ease both;
+  }
+
+  .orbital-orbit.is-top::before,
+  .orbital-orbit.is-top::after {
+    display: none;
+  }
+
+  .orbital-orbit.is-top .orbital-rail {
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(0.85rem, 1.6vw, 1.5rem);
+  }
+
+  .orbital-orbit.is-top .orbital-rail--end {
+    align-items: center;
+  }
+
+  .orbital-orbit.is-top .orbital-rail--end .orbital-option {
+    flex-direction: row;
+  }
+
+  .orbital-orbit.is-top .orbital-rail--end .orbital-option::before {
+    transform-origin: right center;
+    background: linear-gradient(90deg, rgba(240, 169, 196, 0), rgba(255, 255, 255, 0.78));
+  }
+
+  .orbital-orbit.is-top .orbital-rail--end .orbital-option:hover::before,
+  .orbital-orbit.is-top .orbital-rail--end .orbital-option:focus-visible::before {
+    background: linear-gradient(90deg, rgba(240, 169, 196, 0.1), var(--orbital-rose));
+  }
+}
+
+/* Solo escritorio: en tablet la posición actual queda bien. */
+/* Todos los tamaños web conservan el menú bajo, en la banda negra. */
+@media (min-width: 901px) {
+  .orbital-orbit:not(.is-top) {
+    padding-bottom: clamp(4.5rem, 8vh, 6rem);
+  }
+
+  .orbital-orbit:not(.is-top) .orbital-rail--end {
+    margin-right: 3.2rem;
+  }
+}
+
+/* Tablet táctil: mantiene la posición original. */
+@media (min-width: 901px) and (max-width: 1199px) and (pointer: coarse) {
+  .orbital-orbit:not(.is-top) {
+    padding-bottom: clamp(6.5rem, 14vh, 9rem);
+  }
+
+  .orbital-orbit:not(.is-top) .orbital-rail--end {
+    margin-right: 0;
+  }
+}
+
+/* Escritorio: menú del primer video centrado arriba, con un hueco
+   entre los dos pares de secciones. */
+@media (min-width: 1200px) {
+  .orbital-orbit:not(.is-top) {
+    inset: auto;
+    top: clamp(1.8rem, 3.5vh, 3rem);
+    left: 50%;
+    width: max-content;
+    max-width: calc(100% - 2rem);
+    transform: translateX(-50%);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: min(clamp(3.5rem, 18vw, 26rem), calc(100vw - 70rem));
+    padding: 0;
+  }
+
+  .orbital-orbit:not(.is-top)::before,
+  .orbital-orbit:not(.is-top)::after {
+    display: none;
+  }
+
+  .orbital-orbit:not(.is-top) .orbital-rail {
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(0.5rem, 0.9vw, 0.9rem);
+  }
+
+  /* Línea más corta para ganar espacio y dejarle el centro al frasco. */
+  .orbital-orbit:not(.is-top) .orbital-option {
+    gap: 0.55rem;
+  }
+
+  .orbital-orbit:not(.is-top) .orbital-option::before {
+    width: 1.4rem;
+  }
+
+  .orbital-orbit:not(.is-top) .orbital-rail--end {
+    align-items: center;
+    margin-right: 0;
+  }
+
+  /* Segunda escena: misma altura que la primera, solo se corre a la derecha. */
+  .orbital-orbit.is-top {
+    top: clamp(1.8rem, 3.5vh, 3rem);
+  }
+}
+
+@keyframes orbital-nav-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.orbital-option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.4rem 0;
+
+  color: rgba(247, 238, 242, 0.8);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  text-shadow:
+    0 0 2px rgba(0, 0, 0, 0.5),
+    0 2px 22px rgba(0, 0, 0, 0.9);
+  transition:
+    color 0.45s ease,
+    text-shadow 0.45s ease;
+}
+
+/* Filo luminoso que se extiende y brilla al pasar el cursor */
+.orbital-option::before {
+  content: '';
+  flex: none;
+  width: 2.75rem;
+  height: 1px;
+  opacity: 0.45;
+
+  transform: scaleX(0.5);
+  transform-origin: right center;
+  background: linear-gradient(90deg, rgba(240, 169, 196, 0), rgba(255, 255, 255, 0.78));
+
+  transition:
+    transform 0.45s ease,
+    opacity 0.45s ease,
+    background 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+/* Luz cálida que se derrama bajo la opción activa */
+.orbital-option::after {
+  content: '';
+  position: absolute;
+  inset: -1.1rem -1.6rem;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(50% 58% at 50% 50%, rgba(240, 169, 196, 0.34), rgba(240, 169, 196, 0) 72%);
+  transition: opacity 0.45s ease;
+}
+
+.orbital-option:hover::after,
+.orbital-option:focus-visible::after {
+  opacity: 1;
+}
+
+.orbital-rail--end .orbital-option {
+  flex-direction: row-reverse;
+}
+
+.orbital-rail--end .orbital-option::before {
+  transform-origin: left center;
+  background: linear-gradient(270deg, rgba(240, 169, 196, 0), rgba(255, 255, 255, 0.78));
+}
+
+.orbital-option:focus-visible {
+  outline-offset: 5px;
+  border-radius: 0.45rem;
+}
+
+.orbital-option:hover,
+.orbital-option:focus-visible {
+  color: #ffffff;
+  text-shadow:
+    0 0 16px rgba(240, 169, 196, 0.95),
+    0 0 42px rgba(240, 169, 196, 0.55),
+    0 2px 22px rgba(0, 0, 0, 0.55);
+}
+
+.orbital-option:hover::before,
+.orbital-option:focus-visible::before {
+  transform: scaleX(1);
+  opacity: 1;
+  background: linear-gradient(90deg, rgba(240, 169, 196, 0.15), var(--orbital-rose));
+  box-shadow: 0 0 14px rgba(240, 169, 196, 1);
+}
+
+.orbital-rail--end .orbital-option:hover::before,
+.orbital-rail--end .orbital-option:focus-visible::before {
+  background: linear-gradient(270deg, rgba(240, 169, 196, 0.1), var(--orbital-rose));
+}
+
+/* ---------------------------------------------------------
+   Barra inferior
+   --------------------------------------------------------- */
+.orbital-dock {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.1rem, 3.4vh, 2.4rem);
+  z-index: 50;
+
+  width: max-content;
+  max-width: calc(100% - 1.5rem);
+  transform: translateX(-50%);
+}
+
+.orbital-dock-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-full, 9999px);
+  background: var(--orbital-glass);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(18px) saturate(1.25);
+  box-shadow:
+    0 26px 60px -26px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.orbital-dock-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.72rem 1.35rem;
+
+  border: 1px solid var(--orbital-line);
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(10, 6, 9, 0.72);
+
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.orbital-dock-name::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--orbital-rose);
+  box-shadow: 0 0 12px rgba(240, 169, 196, 0.9);
+}
+
+.orbital-carousel {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0 0.25rem;
+}
+
+.orbital-arrow {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.orbital-arrow:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.orbital-arrow:active {
+  transform: scale(0.94);
+}
+
+.orbital-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+.orbital-count {
+  min-width: 2.9rem;
+  text-align: center;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.88);
+  font-variant-numeric: tabular-nums;
+}
+
+.orbital-count-sep {
+  margin: 0 0.15rem;
+  opacity: 0.4;
+}
+
+.orbital-dock-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.72rem 1.1rem;
+
+  border: 1px solid var(--orbital-line);
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.orbital-dock-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+/* Acceso al visor 3D, al inicio de la barra */
+.orbital-dock-link--3d {
+  color: var(--orbital-rose);
+  border-color: rgba(240, 169, 196, 0.45);
+  background: rgba(240, 169, 196, 0.12);
+}
+
+.orbital-dock-link--3d:hover {
+  color: #ffffff;
+  border-color: rgba(240, 169, 196, 0.8);
+  background: rgba(240, 169, 196, 0.24);
+  box-shadow: 0 0 22px rgba(240, 169, 196, 0.28);
+}
+
+/* ---------------------------------------------------------
+   Responsive
+   --------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .orbital-option {
+    font-size: 0.75rem;
+    letter-spacing: 0.24em;
+  }
+
+  .orbital-option::before {
+    width: 2.1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .orbital-top {
+    padding: 1rem;
+  }
+
+  .orbital-brand {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+
+  .orbital-brand-name {
+    font-size: 0.9375rem;
+  }
+
+  /* Arriba solo quedan idioma y acceso al panel; la marca conserva
+     su tipografía y el botón Comprar pasa a flotar abajo. */
+  .orbital-brand-sub {
+    display: block;
+    letter-spacing: 0.18em;
+  }
+
+  .orbital-tools {
+    flex: 0 0 auto;
+    margin-left: auto;
+    gap: 0.4rem;
+  }
+
+  .orbital-currency {
+    display: none;
+  }
+
+  /* En móvil el acceso al panel se retira: arriba queda solo ES */
+  .orbital-tools .orbital-chip--icon {
+    display: none;
+  }
+
+  /* En móvil las opciones se reparten en dos columnas bajo el producto,
+     igual que en la primera escena. */
+  .orbital-orbit {
+    inset: auto 1rem calc(4.9rem + env(safe-area-inset-bottom, 0px));
+    width: auto;
+    max-width: none;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0;
+    gap: 0.75rem;
+  }
+
+  .orbital-orbit::before,
+  .orbital-orbit::after {
+    display: none;
+  }
+
+  .orbital-rail {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.55rem;
+  }
+
+  .orbital-rail--end {
+    align-items: flex-end;
+  }
+
+  .orbital-rail--end .orbital-option {
+    flex-direction: row-reverse;
+  }
+
+  .orbital-rail--end .orbital-option::before {
+    transform-origin: left center;
+    background: linear-gradient(270deg, rgba(240, 169, 196, 0), rgba(255, 255, 255, 0.78));
+  }
+
+  .orbital-rail--end .orbital-option:hover::before,
+  .orbital-rail--end .orbital-option:focus-visible::before {
+    background: linear-gradient(270deg, rgba(240, 169, 196, 0.1), var(--orbital-rose));
+  }
+
+  .orbital-option {
+    gap: 0.55rem;
+    padding: 0.25rem 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+  }
+
+  .orbital-option::before {
+    width: 1.6rem;
+  }
+
+  .orbital-video {
+    object-position: center 42%;
+  }
+
+  .orbital-dock {
+    width: calc(100% - 1.5rem);
+  }
+
+  .orbital-dock-inner {
+    justify-content: space-between;
+    gap: 0.25rem;
+  }
+
+  .orbital-dock-name {
+    padding: 0.6rem 0.85rem;
+    font-size: 0.5625rem;
+    letter-spacing: 0.16em;
+  }
+
+  .orbital-dock-link {
+    padding: 0.65rem 0.8rem;
+  }
+
+  .orbital-dock-link span {
+    display: none;
+  }
+
+  /* El acceso 3D conserva su etiqueta por ser una sección destacada */
+  .orbital-dock-link--3d span {
+    display: inline;
+  }
+}
+
+@media (max-width: 380px) {
+  .orbital-top {
+    padding: 0.85rem 0.8rem;
+    gap: 0.5rem;
+  }
+
+  .orbital-brand {
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .orbital-brand-mark {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .orbital-brand-name {
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+  }
+
+  .orbital-brand-sub {
+    letter-spacing: 0.16em;
+  }
+
+  .orbital-tools {
+    gap: 0.35rem;
+  }
+
+  .orbital-chip {
+    min-height: 1.9rem;
+    padding: 0 0.7rem;
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* El botón de acceso es solo icono: sin padding lateral para que
+     no aplaste el SVG en pantallas estrechas. */
+  .orbital-chip--icon {
+    padding: 0;
+  }
+
+  .orbital-currency {
+    padding: 0.15rem;
+  }
+
+  .orbital-currency .orbital-chip {
+    min-height: 1.6rem;
+    padding: 0 0.55rem;
+  }
+
+  .orbital-option {
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+  }
+
+  .orbital-dock-name {
+    display: none;
+  }
+
+  .orbital-carousel {
+    padding: 0;
+  }
+}
+
+/* Pantallas muy estrechas: se compactan las acciones sin quitar textos */
+@media (max-width: 340px) {
+  .orbital-tools {
+    gap: 0.3rem;
+  }
+}
+
+@media (max-height: 620px) {
+  .orbital-orbit {
+    bottom: 5.2rem;
+  }
+
+  .orbital-rail {
+    gap: 0.9rem;
+  }
+
+  .orbital-dock {
+    bottom: 0.75rem;
+  }
+}
+
+/* ---------------------------------------------------------
+   Movimiento reducido
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .orbital-video,
+  .orbital-option,
+  .orbital-option::before,
+  .orbital-option::after,
+  .orbital-arrow,
+  .orbital-chip,
+  .orbital-skip {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   Invitación al scroll en la primera escena
+   --------------------------------------------------------- */
+.orbital-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: calc(6.2rem + env(safe-area-inset-bottom, 0px));
+  z-index: 45;
+
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  transform: translateX(-50%);
+
+  color: rgba(247, 238, 242, 0.64);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.9);
+  transition: color 0.3s ease;
+}
+
+.orbital-scroll-cue:hover {
+  color: #ffffff;
+}
+
+.orbital-scroll-cue-line {
+  position: relative;
+  width: 1px;
+  height: 2.1rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.orbital-scroll-cue-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+  transform: translateY(-100%);
+  animation: orbital-scroll-cue-line 2.4s ease-in-out infinite;
+}
+
+@keyframes orbital-scroll-cue-line {
+  0% { transform: translateY(-100%); }
+  60%, 100% { transform: translateY(100%); }
+}
+
+/* ---------------------------------------------------------
+   Segunda escena — video recorrido por el scroll
+   --------------------------------------------------------- */
+.orbital-reveal {
+  position: relative;
+  height: 200vh;
+  height: 200svh;
+  background: #000000;
+}
+
+.orbital-reveal-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #000000;
+}
+
+.orbital-reveal-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #000000;
+}
+
+.orbital-reveal-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(58% 48% at 50% 50%, rgba(240, 169, 196, 0.08), rgba(0, 0, 0, 0) 72%),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.94) 0%,
+      rgba(0, 0, 0, 0.62) 9%,
+      rgba(0, 0, 0, 0) 24%,
+      rgba(0, 0, 0, 0) 76%,
+      rgba(0, 0, 0, 0.62) 91%,
+      rgba(0, 0, 0, 0.94) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0) 70%,
+      rgba(0, 0, 0, 0.3) 80%,
+      rgba(0, 0, 0, 0.9) 90%,
+      #000000 96%
+    );
+}
+
+.orbital-reveal-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 1;
+}
+
+.orbital-reveal-poster-blur {
+  position: absolute;
+  inset: -2rem;
+  width: calc(100% + 4rem);
+  height: calc(100% + 4rem);
+  object-fit: cover;
+  filter: blur(22px) brightness(0.4) saturate(0.95);
+  transform: scale(1.04);
+  opacity: 1;
+  transition: opacity 0.7s ease;
+}
+
+.orbital-reveal-stage.is-video-ready .orbital-reveal-poster-blur {
+  opacity: 0;
+}
+
+.orbital-reveal-backdrop,
+.orbital-reveal-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+/* Relleno ambiental para pantallas verticales: la misma escena,
+   muy desenfocada y oscurecida, detrás del encuadre completo. */
+.orbital-reveal-backdrop {
+  inset: -2rem;
+  width: calc(100% + 4rem);
+  height: calc(100% + 4rem);
+  filter: blur(22px) brightness(0.4) saturate(0.95);
+  transform: scale(1.04);
+  will-change: opacity;
+}
+
+.orbital-reveal-canvas {
+  will-change: opacity;
+}
+
+.orbital-reveal-stage.is-video-ready .orbital-reveal-backdrop {
+  opacity: 0.9;
+}
+
+.orbital-reveal-stage.is-video-ready .orbital-reveal-canvas {
+  opacity: 1;
+}
+
+/* Still de alta definición del último frame; se muestra solo al completar. */
+.orbital-reveal-end {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.orbital-reveal-stage.is-at-end .orbital-reveal-end {
+  opacity: 1;
+}
+
+/* El video real queda fuera del flujo visual: solo alimenta el canvas.
+   Así el navegador no intenta reajustar el scroll al hacer seek. */
+.orbital-reveal-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.orbital-reveal-ui {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  color: var(--orbital-ink);
+}
+
+.orbital-reveal-heading {
+  position: absolute;
+  top: clamp(1.4rem, 4vw, 3rem);
+  left: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.orbital-reveal-kicker {
+  margin: 0 0 0.6rem;
+  color: rgba(247, 238, 242, 0.55);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.orbital-reveal-title {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: clamp(1.35rem, 2.6vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-shadow: 0 10px 34px rgba(0, 0, 0, 0.7);
+}
+
+.orbital-reveal-hint {
+  position: absolute;
+  left: clamp(1.25rem, 4vw, 3.5rem);
+  bottom: clamp(1.6rem, 5vh, 3.2rem);
+
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+
+  color: rgba(247, 238, 242, 0.6);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.orbital-reveal-hint-line {
+  position: relative;
+  width: 3.4rem;
+  height: 1px;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+}
+
+.orbital-reveal-hint-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  transform: translateX(-100%);
+  animation: orbital-reveal-sweep 2.2s ease-in-out infinite;
+}
+
+@keyframes orbital-reveal-sweep {
+  0% { transform: translateX(-100%); }
+  65%, 100% { transform: translateX(100%); }
+}
+
+.orbital-reveal-stage.is-started .orbital-reveal-hint {
+  opacity: 0;
+  transform: translateY(0.6rem);
+}
+
+.orbital-reveal-route {
+  position: absolute;
+  top: 50%;
+  right: clamp(1.1rem, 3vw, 2.6rem);
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.15rem;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  filter:
+    drop-shadow(0 0 2px rgba(0, 0, 0, 0.95))
+    drop-shadow(0 0 7px rgba(0, 0, 0, 0.7));
+}
+
+.orbital-reveal-route-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem;
+
+  border: 0;
+  background: transparent;
+  color: rgba(247, 238, 242, 0.4);
+
+  font-family: inherit;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Área táctil más generosa sin engrosar la línea visible. */
+.orbital-reveal-route-btn::before {
+  content: '';
+  position: absolute;
+  inset: -0.4rem -0.75rem;
+}
+
+.orbital-reveal-route-btn:hover,
+.orbital-reveal-route-btn.is-active {
+  color: #ffffff;
+}
+
+.orbital-reveal-route-btn:focus-visible {
+  outline: 2px solid var(--orbital-rose);
+  outline-offset: 4px;
+}
+
+.orbital-reveal-route-line {
+  position: relative;
+  display: block;
+  width: 2px;
+  height: 3.2rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
+}
+
+.orbital-reveal-route-fill {
+  position: absolute;
+  inset: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  background: #ffffff;
+  box-shadow: 0 0 7px rgba(255, 255, 255, 0.8);
+  transition: transform 0.2s linear;
+}
+
+.orbital-reveal-route-btn[data-reveal-jump="start"].is-active .orbital-reveal-route-fill {
+  transform: scaleY(1);
+}
+
+.orbital-reveal-route-btn[data-reveal-jump="end"] .orbital-reveal-route-fill {
+  transform: scaleY(var(--reveal-progress, 0));
+}
+
+.orbital-reveal-cta {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.6rem, 5vh, 3.2rem);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.35rem;
+  transform: translate(-50%, 0.8rem);
+
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(20, 10, 16, 0.55);
+  color: #ffffff;
+
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.orbital-reveal-cta .orbital-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.orbital-reveal-stage.is-complete .orbital-reveal-cta {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+
+.orbital-reveal-stage.is-complete .orbital-reveal-hint {
+  opacity: 0;
+}
+
+.orbital-reveal-cta:hover {
+  border-color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 900px) {
+  .orbital-scroll-cue {
+    bottom: calc(9.4rem + env(safe-area-inset-bottom, 0px));
+    gap: 0.4rem;
+    font-size: 0.4375rem;
+    letter-spacing: 0.22em;
+  }
+
+  .orbital-scroll-cue-line {
+    height: 1.5rem;
+  }
+
+  .orbital-reveal {
+    height: 180vh;
+    height: 180svh;
+  }
+
+  .orbital-reveal-heading {
+    top: 1.1rem;
+    left: 1.1rem;
+  }
+
+  .orbital-reveal-kicker {
+    margin-bottom: 0.45rem;
+    font-size: 0.5rem;
+  }
+
+  .orbital-reveal-title {
+    font-size: 1.15rem;
+    letter-spacing: 0.18em;
+  }
+
+  .orbital-reveal-hint {
+    left: 1.1rem;
+    bottom: calc(1.35rem + env(safe-area-inset-bottom, 0px));
+    gap: 0.55rem;
+    font-size: 0.5rem;
+  }
+
+  .orbital-reveal-hint-line {
+    width: 2.3rem;
+  }
+
+  .orbital-reveal-route {
+    right: 0.9rem;
+    gap: 0.8rem;
+  }
+
+  .orbital-reveal-route-btn {
+    gap: 0.35rem;
+    font-size: 0.5rem;
+  }
+
+  .orbital-reveal-route-line {
+    height: 2.2rem;
+  }
+
+  .orbital-reveal-cta {
+    left: 1.1rem;
+    bottom: calc(1.15rem + env(safe-area-inset-bottom, 0px));
+    transform: translateY(0.8rem);
+    padding: 0.75rem 1.1rem;
+    font-size: 0.5rem;
+  }
+
+  .orbital-reveal-stage.is-complete .orbital-reveal-cta {
+    transform: translateY(0);
+  }
+}
+
+/* El master móvil ya es vertical y llena la pantalla. */
+@media (max-width: 768px) {
+  .orbital-reveal-poster,
+  .orbital-reveal-end {
+    object-fit: cover;
+  }
+}
+
+@media (max-height: 620px) {
+  .orbital-scroll-cue {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbital-scroll-cue-line::after,
+  .orbital-reveal-hint-line::after {
+    animation: none;
+  }
+
+  .orbital-orbit.is-top,
+  .orbital-orbit.is-top:not(.is-scrolled) {
+    animation: none;
+  }
+
+  .orbital-reveal {
+    height: 100vh;
+    height: 100svh;
+  }
+
+  .orbital-reveal-hint,
+  .orbital-reveal-route {
+    display: none;
+  }
+
+  .orbital-reveal-cta {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (max-width: 900px) {
+  .orbital-reveal-cta {
+    transform: translateY(0);
+  }
+}

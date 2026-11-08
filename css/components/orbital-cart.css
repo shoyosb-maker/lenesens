@@ -1,0 +1,812 @@
+/* ============================================================
+   ORBITAL CART — Botón flotante + bolsa de compra
+   Lenesens Hydralight · Landing inmersiva
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   Botón flotante
+   --------------------------------------------------------- */
+.orbital-cart-fab {
+  position: fixed;
+  right: clamp(1rem, 2.6vw, 2rem);
+  bottom: calc(clamp(1.1rem, 3.4vh, 2.4rem) + env(safe-area-inset-bottom, 0px));
+  z-index: 60;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 3.15rem;
+  height: 3.15rem;
+  padding: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--radius-full, 9999px);
+  background: linear-gradient(135deg, rgba(176, 24, 89, 0.96), rgba(127, 0, 59, 0.96));
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+
+  box-shadow:
+    0 22px 48px -20px rgba(166, 19, 82, 1),
+    0 0 0 1px rgba(240, 169, 196, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+.orbital-cart-fab:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(194, 24, 91, 0.98), rgba(143, 0, 67, 0.98));
+  box-shadow:
+    0 28px 58px -20px rgba(194, 24, 91, 1),
+    0 0 0 1px rgba(240, 169, 196, 0.55),
+    0 0 34px rgba(240, 169, 196, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.orbital-cart-fab:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.orbital-cart-fab-icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+}
+
+/* El icono de la bolsa basta para identificar la acción */
+.orbital-cart-fab-label {
+  display: none;
+}
+
+.orbital-cart-fab-badge {
+  position: absolute;
+  top: -0.35rem;
+  right: -0.25rem;
+
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 0.3rem;
+
+  border-radius: var(--radius-full, 9999px);
+  background: #ffffff;
+  color: #7f003b;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+.orbital-cart-fab-badge[hidden] {
+  display: none;
+}
+
+.orbital-cart-fab-badge.is-bump {
+  animation: orbital-cart-bump 0.5s ease;
+}
+
+@keyframes orbital-cart-bump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+/* La landing puede hacer scroll: se bloquea al abrir la bolsa. */
+body.has-cart-open {
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   Panel / bolsa de compra
+   --------------------------------------------------------- */
+.orbital-cart {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+
+  display: flex;
+  justify-content: flex-end;
+
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear 0.42s;
+}
+
+.orbital-cart.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.orbital-cart-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 2, 5, 0.55);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.orbital-cart.is-open .orbital-cart-overlay {
+  opacity: 1;
+}
+
+.orbital-cart-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  width: min(25rem, 100%);
+  height: 100%;
+
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(22, 12, 18, 0.97), rgba(8, 5, 8, 0.99));
+  color: var(--orbital-ink, #f7eef2);
+  box-shadow: -40px 0 90px -50px rgba(0, 0, 0, 0.95);
+
+  transform: translateX(100%);
+  transition: transform 0.42s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+.orbital-cart.is-open .orbital-cart-panel {
+  transform: none;
+}
+
+.orbital-cart a:focus-visible,
+.orbital-cart button:focus-visible {
+  outline: 2px solid var(--orbital-rose, #f0a9c4);
+  outline-offset: 3px;
+  border-radius: 0.4rem;
+}
+
+/* --- Cabecera --- */
+.orbital-cart-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.35rem 1.35rem 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.orbital-cart-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(247, 238, 242, 0.5);
+}
+
+.orbital-cart-title {
+  margin: 0;
+  font-family: var(--font-display, 'Playfair Display', serif);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.orbital-cart-close {
+  display: inline-grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  flex: none;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.orbital-cart-close:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(240, 169, 196, 0.6);
+  transform: rotate(90deg);
+}
+
+/* --- Cuerpo --- */
+.orbital-cart-body {
+  flex: 1;
+  min-height: 0;
+  padding: 1.1rem 1.35rem 1.35rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(240, 169, 196, 0.4) transparent;
+}
+
+.orbital-cart-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.orbital-cart-body::-webkit-scrollbar-thumb {
+  background: rgba(240, 169, 196, 0.35);
+  border-radius: 999px;
+}
+
+/* Producto */
+.orbital-cart-product {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.1rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.orbital-cart-thumb {
+  width: 3.6rem;
+  height: 4.75rem;
+  flex: none;
+  padding: 0.25rem;
+  border-radius: 0.7rem;
+  background: #fdf8f6;
+  object-fit: contain;
+}
+
+.orbital-cart-product-info {
+  min-width: 0;
+}
+
+.orbital-cart-product-name {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+.orbital-cart-product-meta {
+  margin: 0.2rem 0 0.45rem;
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  color: rgba(247, 238, 242, 0.55);
+}
+
+.orbital-cart-product-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.orbital-cart-price {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--orbital-rose, #f0a9c4);
+}
+
+.orbital-cart-price-old {
+  font-size: 0.75rem;
+  color: rgba(247, 238, 242, 0.4);
+  text-decoration-color: rgba(247, 238, 242, 0.4);
+}
+
+/* Cantidad + añadir */
+.orbital-cart-order {
+  margin-top: 1.15rem;
+}
+
+.orbital-cart-order-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.orbital-cart-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(247, 238, 242, 0.62);
+}
+
+.orbital-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.2rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.orbital-qty-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 2.05rem;
+  height: 2.05rem;
+
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.orbital-qty-btn:hover:not(:disabled) {
+  background: rgba(240, 169, 196, 0.18);
+  color: #fff5f9;
+}
+
+.orbital-qty-btn:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.orbital-qty-value {
+  min-width: 1.7rem;
+  text-align: center;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.orbital-cart-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: 3rem;
+
+  border: 1px solid rgba(240, 169, 196, 0.45);
+  border-radius: var(--radius-full, 9999px);
+  background: linear-gradient(135deg, rgba(166, 19, 82, 0.85), rgba(194, 24, 91, 0.85));
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  box-shadow:
+    0 18px 38px -22px rgba(194, 24, 91, 1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.orbital-cart-add:hover {
+  background: linear-gradient(135deg, rgba(194, 24, 91, 0.95), rgba(143, 0, 67, 0.95));
+  box-shadow:
+    0 22px 44px -20px rgba(194, 24, 91, 1),
+    0 0 30px rgba(240, 169, 196, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.orbital-cart-add:active {
+  transform: scale(0.99);
+}
+
+.orbital-cart-feedback {
+  min-height: 1.1rem;
+  margin: 0.55rem 0 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  color: var(--orbital-rose, #f0a9c4);
+  text-align: center;
+}
+
+/* Lista de la bolsa */
+.orbital-cart-bag {
+  margin-top: 0;
+}
+
+/* Cuando ya hay productos, el bloque para añadir más queda debajo y separado */
+.orbital-cart-bag:not([hidden]) + .orbital-cart-pick {
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.orbital-cart-subtitle {
+  margin: 0 0 0.7rem;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(247, 238, 242, 0.55);
+}
+
+.orbital-cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.orbital-cart-item {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+
+  padding: 0.7rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.95rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.orbital-cart-item-thumb {
+  width: 2.4rem;
+  height: 3.2rem;
+  padding: 0.15rem;
+  border-radius: 0.45rem;
+  background: #fdf8f6;
+  object-fit: contain;
+}
+
+.orbital-cart-item-body {
+  min-width: 0;
+}
+
+.orbital-cart-item-name {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.orbital-cart-item-price {
+  margin: 0.15rem 0 0;
+  font-size: 0.6875rem;
+  color: rgba(247, 238, 242, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+
+.orbital-cart-item-side {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.orbital-qty--sm {
+  padding: 0.1rem;
+}
+
+.orbital-qty--sm .orbital-qty-btn {
+  width: 1.55rem;
+  height: 1.55rem;
+  font-size: 0.875rem;
+}
+
+.orbital-qty--sm .orbital-qty-value {
+  min-width: 1.15rem;
+  font-size: 0.8125rem;
+}
+
+.orbital-cart-item-remove {
+  display: inline-grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(247, 238, 242, 0.55);
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.orbital-cart-item-remove:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Estado vacío */
+.orbital-cart-empty {
+  margin: 1.35rem 0 0;
+  padding: 0.9rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: rgba(247, 238, 242, 0.5);
+  text-align: center;
+}
+
+.orbital-cart-empty[hidden] {
+  display: none;
+}
+
+/* --- Pie: totales y pago --- */
+.orbital-cart-footer {
+  padding: 1rem 1.35rem calc(1.15rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(10, 6, 9, 0.92);
+}
+
+.orbital-cart-footer[hidden] {
+  display: none;
+}
+
+.orbital-cart-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0 0 0.95rem;
+}
+
+.orbital-cart-total-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(247, 238, 242, 0.62);
+}
+
+.orbital-cart-total-row dt,
+.orbital-cart-total-row dd {
+  margin: 0;
+}
+
+.orbital-cart-total-row dd {
+  font-variant-numeric: tabular-nums;
+  color: rgba(247, 238, 242, 0.85);
+}
+
+.orbital-cart-total-row.is-final {
+  margin-top: 0.4rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.9375rem;
+  color: #ffffff;
+}
+
+.orbital-cart-total-row.is-final dt {
+  letter-spacing: 0.04em;
+}
+
+.orbital-cart-total-row.is-final dd {
+  font-weight: 700;
+  color: var(--orbital-rose, #f0a9c4);
+}
+
+.orbital-cart-pay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: 3rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--radius-full, 9999px);
+  background: linear-gradient(135deg, #b01859, #7f003b);
+  color: #ffffff;
+
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  box-shadow:
+    0 20px 44px -20px rgba(166, 19, 82, 1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+.orbital-cart-pay:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #c2185b, #8f0043);
+  box-shadow:
+    0 26px 54px -20px rgba(194, 24, 91, 1),
+    0 0 34px rgba(240, 169, 196, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.orbital-cart-note {
+  margin: 0.7rem 0 0;
+  font-size: 0.5625rem;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: rgba(247, 238, 242, 0.42);
+}
+
+/* ---------------------------------------------------------
+   Responsive
+   --------------------------------------------------------- */
+@media (max-width: 900px) {
+  /* El botón queda flotando sobre las secciones, encima de la
+     navegación inferior del landing. */
+  .orbital-cart-fab {
+    position: fixed;
+    right: 1rem;
+    bottom: calc(10rem + env(safe-area-inset-bottom, 0px));
+    z-index: 70;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    gap: 0;
+  }
+
+  .orbital-cart-fab-badge {
+    top: -0.3rem;
+    right: -0.3rem;
+    min-width: 1.15rem;
+    height: 1.15rem;
+    font-size: 0.5625rem;
+  }
+
+  /* La bolsa se abre como hoja inferior */
+  .orbital-cart {
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .orbital-cart-panel {
+    width: 100%;
+    height: auto;
+    max-height: 94svh;
+
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 1.5rem 1.5rem 0 0;
+    box-shadow: 0 -40px 90px -40px rgba(0, 0, 0, 0.95);
+
+    transform: translateY(100%);
+  }
+
+  .orbital-cart.is-open .orbital-cart-panel {
+    transform: none;
+  }
+
+  .orbital-cart-head::before {
+    content: '';
+    position: absolute;
+    top: 0.55rem;
+    left: 50%;
+    width: 2.6rem;
+    height: 0.22rem;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .orbital-cart-head {
+    position: relative;
+    padding: 1.45rem 1.15rem 0.85rem;
+  }
+
+  .orbital-cart-body {
+    padding: 0.85rem 1.15rem 1rem;
+  }
+
+  .orbital-cart-footer {
+    padding: 0.85rem 1.15rem calc(0.95rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .orbital-cart-thumb {
+    width: 3.2rem;
+    height: 4.3rem;
+  }
+
+  .orbital-cart-bag:not([hidden]) + .orbital-cart-pick {
+    margin-top: 0.9rem;
+    padding-top: 0.85rem;
+  }
+
+  .orbital-cart-order {
+    margin-top: 0.9rem;
+  }
+
+  .orbital-cart-totals {
+    margin-bottom: 0.8rem;
+  }
+
+  .orbital-cart-pay {
+    height: 2.85rem;
+  }
+
+  .orbital-cart-note {
+    margin-top: 0.55rem;
+  }
+}
+
+/* Pantallas muy estrechas: se compacta la bolsa y la cabecera */
+@media (max-width: 380px) {
+  .orbital-cart-item {
+    grid-template-columns: 1.9rem 1fr auto;
+    gap: 0.5rem;
+    padding: 0.55rem 0.6rem;
+  }
+
+  .orbital-cart-item-thumb {
+    width: 1.9rem;
+    height: 2.6rem;
+  }
+
+  .orbital-cart-item-name {
+    font-size: 0.6875rem;
+  }
+
+  .orbital-qty--sm .orbital-qty-btn {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .orbital-qty--sm .orbital-qty-value {
+    min-width: 0.95rem;
+    font-size: 0.75rem;
+  }
+
+  /* Con la bolsa llena, la ficha del producto se vuelve una línea compacta */
+  .orbital-cart-bag:not([hidden]) + .orbital-cart-pick .orbital-cart-thumb,
+  .orbital-cart-bag:not([hidden]) + .orbital-cart-pick .orbital-cart-product-meta {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------
+   Movimiento reducido
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .orbital-cart-fab,
+  .orbital-cart-fab:hover,
+  .orbital-cart-fab:active,
+  .orbital-cart-panel,
+  .orbital-cart-overlay,
+  .orbital-cart-close,
+  .orbital-cart-add,
+  .orbital-cart-pay {
+    transition-duration: 0.01ms !important;
+    transform: none !important;
+  }
+
+  .orbital-cart-fab-badge.is-bump {
+    animation: none;
+  }
+}

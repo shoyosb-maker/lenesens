@@ -1,0 +1,793 @@
+/* ============================================================
+   UTILITIES — Helpers estructurales
+   Lenesens Hydralight
+   Clases reutilizables para layout, espaciado y posicionamiento.
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   1. CONTENEDOR PRINCIPAL
+   Centra el contenido, ancho máximo 1280px, márgenes laterales
+   responsive según el design system.
+   --------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--margin-mobile);
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: var(--margin-desktop);
+  }
+}
+
+/* Variante más angosta (para textos largos, artículos, formularios) */
+.container-narrow {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  padding-inline: var(--margin-mobile);
+}
+
+/* Variante media (para modales, paneles) */
+.container-medium {
+  width: 100%;
+  max-width: 960px;
+  margin-inline: auto;
+  padding-inline: var(--margin-mobile);
+}
+
+/* Contenedor a pantalla completa pero con padding */
+.container-fluid {
+  width: 100%;
+  padding-inline: var(--margin-mobile);
+}
+
+@media (min-width: 1024px) {
+  .container-fluid {
+    padding-inline: var(--margin-desktop);
+  }
+}
+
+/* ---------------------------------------------------------
+   2. SECCIONES — espaciado vertical consistente
+   --------------------------------------------------------- */
+.section {
+  padding-block: var(--space-xl);
+}
+
+.section-sm {
+  padding-block: var(--space-lg);
+}
+
+.section-lg {
+  padding-block: var(--space-2xl);
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-block: var(--space-2xl);
+  }
+
+  .section-lg {
+    padding-block: var(--space-3xl);
+  }
+}
+
+/* ---------------------------------------------------------
+   3. FLEXBOX — helpers
+   --------------------------------------------------------- */
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+/* Alineación en el eje principal (horizontal por defecto) */
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+
+/* Alineación en el eje cruzado (vertical por defecto) */
+.items-start { align-items: flex-start; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.items-stretch { align-items: stretch; }
+.items-baseline { align-items: baseline; }
+
+/* Alineación individual */
+.self-start { align-self: flex-start; }
+.self-center { align-self: center; }
+.self-end { align-self: flex-end; }
+.self-stretch { align-self: stretch; }
+
+/* Gap flexible usando el sistema de espaciado */
+.gap-xs { gap: var(--space-xs); }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+.gap-xl { gap: var(--space-xl); }
+.gap-2xl { gap: var(--space-2xl); }
+
+/* ---------------------------------------------------------
+   4. GRID — helpers
+   --------------------------------------------------------- */
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+/* Auto-fit y auto-fill para grids responsivos sin media queries */
+.grid-auto-fit-sm {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.grid-auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.grid-auto-fit-lg {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+/* Columnas responsivas comunes del design system */
+@media (min-width: 640px) {
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .lg\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+/* ---------------------------------------------------------
+   5. POSICIONAMIENTO
+   --------------------------------------------------------- */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+.static { position: static; }
+
+/* Coordenadas */
+.inset-0 { inset: 0; }
+.top-0 { top: 0; }
+.right-0 { right: 0; }
+.bottom-0 { bottom: 0; }
+.left-0 { left: 0; }
+
+/* ---------------------------------------------------------
+   6. DISPLAY — helpers básicos
+   --------------------------------------------------------- */
+.block { display: block; }
+.inline-block { display: inline-block; }
+.inline { display: inline; }
+.hidden { display: none; }
+
+/* Visibilidad */
+.visible { visibility: visible; }
+.invisible { visibility: hidden; }
+
+/* ---------------------------------------------------------
+   7. TAMAÑOS — width y height
+   --------------------------------------------------------- */
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+.w-fit { width: fit-content; }
+
+.h-full { height: 100%; }
+.h-auto { height: auto; }
+.h-screen { height: 100vh; }
+.h-screen-dvh { height: 100dvh; }
+
+.min-h-screen { min-height: 100vh; }
+.min-h-screen-dvh { min-height: 100dvh; }
+
+/* ---------------------------------------------------------
+   8. OVERFLOW
+   --------------------------------------------------------- */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+.overflow-x-auto { overflow-x: auto; overflow-y: hidden; }
+.overflow-y-auto { overflow-y: auto; overflow-x: hidden; }
+
+/* Scroll horizontal sin barra visible (para carruseles de chips) */
+.scroll-x-hidden {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-x-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------------------------------------------------------
+   9. MÁRGENES AUTOMÁTICOS
+   --------------------------------------------------------- */
+.mx-auto { margin-inline: auto; }
+.my-auto { margin-block: auto; }
+.ml-auto { margin-left: auto; }
+.mr-auto { margin-right: auto; }
+.mt-auto { margin-top: auto; }
+.mb-auto { margin-bottom: auto; }
+
+/* ---------------------------------------------------------
+   10. AISLAMIENTO Y Z-INDEX
+   --------------------------------------------------------- */
+.isolate { isolation: isolate; }
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-50 { z-index: 50; }
+
+/* ---------------------------------------------------------
+   11. ASPECT RATIO
+   --------------------------------------------------------- */
+.aspect-square { aspect-ratio: 1 / 1; }
+.aspect-video { aspect-ratio: 16 / 9; }
+.aspect-product { aspect-ratio: 4 / 5; }
+
+/* ---------------------------------------------------------
+   12. TRANSICIONES Y TRANSFORMS
+   --------------------------------------------------------- */
+.transition-fast { transition: all var(--transition-fast); }
+.transition-base { transition: all var(--transition-base); }
+.transition-slow { transition: all var(--transition-slow); }
+
+/* Hover: elevar sutilmente el elemento */
+.hover-lift {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Hover: escalar ligeramente */
+.hover-scale {
+  transition: transform var(--transition-base);
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* ---------------------------------------------------------
+   13. FONDOS Y GRADIENTES
+   --------------------------------------------------------- */
+.bg-surface { background-color: var(--color-surface); }
+.bg-surface-low { background-color: var(--color-surface-container-low); }
+.bg-surface-container { background-color: var(--color-surface-container); }
+.bg-white { background-color: var(--color-surface-container-lowest); }
+.bg-primary { background-color: var(--color-primary); }
+.bg-primary-container { background-color: var(--color-primary-container); }
+.bg-secondary-fixed { background-color: var(--color-secondary-fixed); }
+.bg-tertiary-fixed { background-color: var(--color-tertiary-fixed); }
+
+.bg-gradient-primary { background: var(--gradient-primary); }
+.bg-gradient-hero { background: var(--gradient-hero); }
+.bg-gradient-oferta { background: var(--gradient-oferta); }
+
+/* ---------------------------------------------------------
+   14. BORDES Y RADIOS
+   --------------------------------------------------------- */
+.border { border: 1px solid var(--color-outline-variant); }
+.border-t { border-top: 1px solid var(--color-outline-variant); }
+.border-b { border-bottom: 1px solid var(--color-outline-variant); }
+.border-l { border-left: 1px solid var(--color-outline-variant); }
+.border-r { border-right: 1px solid var(--color-outline-variant); }
+.border-none { border: none; }
+
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded { border-radius: var(--radius); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-2xl { border-radius: var(--radius-2xl); }
+.rounded-full { border-radius: var(--radius-full); }
+.rounded-none { border-radius: 0; }
+
+/* ---------------------------------------------------------
+   15. SOMBRAS
+   --------------------------------------------------------- */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+.shadow-glow { box-shadow: var(--shadow-glow); }
+.shadow-none { box-shadow: none; }
+
+/* ---------------------------------------------------------
+   16. GLASSMORPHISM
+   --------------------------------------------------------- */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border);
+}
+
+.glass-soft {
+  background: var(--glass-bg-soft);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+}
+
+/* ---------------------------------------------------------
+   17. ASPECTOS ACCESIBLES — ocultar solo visualmente
+   (el .sr-only ya está en reset.css, este es alias)
+   --------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------
+   18. RESPONSIVE — ocultar/mostrar por breakpoint
+   --------------------------------------------------------- */
+/* Móvil: mostrar solo en pantallas < 768px */
+.only-mobile {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .only-mobile { display: none; }
+}
+
+/* Desktop: mostrar solo en pantallas >= 1024px */
+.only-desktop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .only-desktop { display: block; }
+}
+
+/* Ocultar en móvil */
+.hide-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hide-mobile { display: block; }
+}
+
+/* Ocultar en desktop */
+.hide-desktop {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .hide-desktop { display: none; }
+}
+
+/* ---------------------------------------------------------
+   19. HELPERS ESPECÍFICOS DEL PROYECTO
+   --------------------------------------------------------- */
+
+/* Área táctil mínima recomendada (44x44px) */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ancho de lectura cómoda (60-75 caracteres por línea) */
+.readable {
+  max-width: 65ch;
+}
+
+/* Centrar contenido horizontal y verticalmente */
+.center-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stack vertical con gap consistente */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.stack-sm { gap: var(--space-sm); }
+.stack-lg { gap: var(--space-lg); }
+.stack-xl { gap: var(--space-xl); }
+
+/* ---------------------------------------------------------
+   20. SAFE AREA (para móviles con notch)
+   --------------------------------------------------------- */
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.pl-safe {
+  padding-left: env(safe-area-inset-left, 0);
+}
+
+.pr-safe {
+  padding-right: env(safe-area-inset-right, 0);
+}
+/* ---------------------------------------------------------
+   21. SCROLL REVEAL — animación de aparición
+   Los elementos con [data-reveal] empiezan invisibles y suben
+   ligeramente cuando entran al viewport.
+   --------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Retrasos escalonados para grupos de elementos */
+[data-reveal][data-delay="100"] { transition-delay: 100ms; }
+[data-reveal][data-delay="200"] { transition-delay: 200ms; }
+[data-reveal][data-delay="300"] { transition-delay: 300ms; }
+[data-reveal][data-delay="400"] { transition-delay: 400ms; }
+[data-reveal][data-delay="500"] { transition-delay: 500ms; }
+
+/* Si el usuario prefiere menos movimiento, aparecen de una */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+/* ---------------------------------------------------------
+   22. TOAST CONTAINER — Notificaciones flotantes
+   --------------------------------------------------------- */
+.toast-container {
+  position: fixed;
+  z-index: var(--z-toast);
+  pointer-events: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+
+  max-width: 22rem;
+  width: calc(100% - 2rem);
+}
+
+.toast-container[data-position="bottom-right"] {
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0));
+  right: 1rem;
+}
+
+.toast-container[data-position="bottom-left"] {
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0));
+  left: 1rem;
+}
+
+.toast-container[data-position="top-right"] {
+  top: calc(1rem + env(safe-area-inset-top, 0));
+  right: 1rem;
+}
+
+.toast {
+  pointer-events: auto;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-lg);
+
+  background: var(--color-inverse-surface);
+  color: var(--color-inverse-on-surface);
+  box-shadow: var(--shadow-lg);
+
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-medium);
+
+  cursor: pointer;
+
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.toast.is-leaving {
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+}
+
+.toast-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+
+  border-radius: var(--radius-full);
+  font-weight: var(--fw-bold);
+  font-size: 0.75rem;
+}
+
+.toast-icon-success {
+  background: #d8ecc7;
+  color: #2b5a15;
+}
+
+.toast-icon-error {
+  background: var(--color-error-container);
+  color: var(--color-on-error-container);
+}
+
+.toast-icon-warning {
+  background: var(--color-tertiary-fixed);
+  color: var(--color-on-tertiary-fixed);
+}
+
+.toast img.toast-icon {
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+.toast-message {
+  flex: 1;
+  line-height: 1.35;
+}
+
+.toast-action {
+  flex-shrink: 0;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.15);
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.toast-action:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Variantes de tipo (borde izquierdo de color) */
+.toast-success { border-left: 3px solid #4a8b2c; }
+.toast-error   { border-left: 3px solid var(--color-error); }
+.toast-warning { border-left: 3px solid var(--color-tertiary-container); }
+.toast-info    { border-left: 3px solid var(--color-secondary); }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .toast-container {
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    max-width: none;
+  }
+
+  .toast-container[data-position="bottom-right"],
+  .toast-container[data-position="bottom-left"] {
+    bottom: calc(5rem + env(safe-area-inset-bottom, 0));
+  }
+}
+/* ============================================================
+   PARTE 25 — ACCESIBILIDAD — Utilidades
+   ============================================================ */
+
+/* Contenido visible solo para lectores de pantalla */
+.sr-only,
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Contenido oculto hasta focus (skip links) */
+.sr-only-focusable:not(:focus):not(:focus-within) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Texto con contraste forzado para modo oscuro del sistema */
+@media (prefers-color-scheme: dark) {
+  .force-contrast-light {
+    background: #ffffff;
+    color: #1b1c1a;
+  }
+}
+
+/* ---------------------------------------------------------
+   ARIA LIVE REGIONS
+   --------------------------------------------------------- */
+[aria-live] {
+  /* Reservado para mensajes dinámicos */
+  position: relative;
+}
+
+/* ---------------------------------------------------------
+   FOCUS TRAP visual (cuando un modal está activo)
+   --------------------------------------------------------- */
+body.has-modal-open {
+  overflow: hidden;
+}
+
+body.has-modal-open > *:not(.modal):not(.toast-container) {
+  /* Asegura que no haya otros focusables fuera del modal */
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   ESTADO DE CARGA accesible
+   --------------------------------------------------------- */
+[aria-busy="true"]::after {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-left: 0.5em;
+
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+
+  animation: spin-loader 0.7s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin-loader {
+  to { transform: rotate(360deg); }
+}
+/* ---------------------------------------------------------
+   26. OPTIMIZACIÓN DE IMÁGENES
+   Previene layout shift (CLS) al reservar espacio
+   --------------------------------------------------------- */
+
+/* Imágenes responsivas por defecto */
+img {
+  content-visibility: auto;
+}
+
+/* Contenedor con aspect-ratio para imágenes de producto */
+.img-aspect-product {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+.img-aspect-square {
+  aspect-ratio: 1;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+.img-aspect-video {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+/* Placeholder de color mientras carga la imagen */
+.img-placeholder {
+  background: linear-gradient(90deg, var(--color-surface-container-low) 25%, var(--color-surface-container) 50%, var(--color-surface-container-low) 75%);
+  background-size: 200% 100%;
+  animation: img-shimmer 1.5s infinite;
+}
+
+@keyframes img-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Reduce el repaint cuando la imagen no es visible */
+img[loading="lazy"] {
+  content-visibility: auto;
+}
