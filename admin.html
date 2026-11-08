@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#fbf9f6">
+  <title>Panel de ventas · Lenesens Hydralight</title>
+  <meta name="description" content="Panel administrativo de ventas de Lenesens Hydralight Colombia.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+  <meta name="msapplication-TileColor" content="#7f003b">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/utilities.css">
+  <link rel="stylesheet" href="css/components/buttons.css">
+  <link rel="stylesheet" href="css/pages/admin.css">
+</head>
+<body class="page-admin">
+  <a class="skip-link" href="#admin-main">Saltar al contenido principal</a>
+
+  <!-- ============================================================
+       ACCESO
+       ============================================================ -->
+  <section class="admin-gate" data-admin-gate aria-labelledby="gate-title">
+    <div class="admin-gate-bg" aria-hidden="true">
+      <span class="admin-gate-glow admin-gate-glow--rose"></span>
+      <span class="admin-gate-glow admin-gate-glow--gold"></span>
+    </div>
+
+    <div class="admin-gate-card">
+      <a class="admin-gate-brand" href="index.html" aria-label="Lenesens Hydralight, inicio">
+        <img src="assets/favicon/android-chrome-192x192.png" alt="" width="48" height="48" loading="eager" decoding="async">
+        <span class="admin-gate-brand-copy">
+          <strong>Lenesens</strong>
+          <small>Hydralight Colombia</small>
+        </span>
+      </a>
+
+      <span class="overline">Panel de ventas</span>
+      <h1 class="admin-gate-title" id="gate-title">Acceso de <em>super usuario</em></h1>
+      <p class="admin-gate-desc">
+        Consulta los pedidos, los ingresos y el comportamiento de las ventas de la tienda.
+      </p>
+
+      <form class="admin-form" data-admin-form novalidate>
+        <div class="admin-field">
+          <label for="admin-user">Usuario</label>
+          <div class="admin-input">
+            <svg class="admin-input-icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-user"></use></svg>
+            <input id="admin-user" name="user" type="text" autocomplete="username" spellcheck="false" autocapitalize="off" required>
+          </div>
+        </div>
+
+        <div class="admin-field">
+          <label for="admin-pass">Contraseña</label>
+          <div class="admin-input">
+            <svg class="admin-input-icon" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-lock"></use></svg>
+            <input id="admin-pass" name="password" type="password" autocomplete="current-password" required>
+            <button type="button" class="admin-input-toggle" data-toggle-pass aria-label="Mostrar contraseña" aria-pressed="false">
+              <svg aria-hidden="true"><use href="assets/icons/sprite.svg#icon-eye"></use></svg>
+            </button>
+          </div>
+        </div>
+
+        <p class="admin-error" data-admin-error role="alert" hidden></p>
+
+        <button type="submit" class="btn btn-primary admin-submit">Ingresar al panel</button>
+      </form>
+
+      <p class="admin-gate-note">
+        <svg aria-hidden="true"><use href="assets/icons/sprite.svg#icon-shield-check"></use></svg>
+        Acceso restringido. La sesión se guarda únicamente en este navegador.
+      </p>
+
+      <a class="admin-gate-back" href="index.html">← Volver a la tienda</a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DASHBOARD
+       ============================================================ -->
+  <div class="admin-app" data-admin-app hidden>
+
+    <header class="admin-bar">
+      <div class="admin-bar-inner">
+        <a class="admin-bar-brand" href="index.html">
+          <img src="assets/favicon/android-chrome-192x192.png" alt="" width="36" height="36" loading="eager" decoding="async">
+          <span class="admin-bar-brand-copy">
+            <strong>Lenesens</strong>
+            <small>Panel de ventas</small>
+          </span>
+        </a>
+
+        <div class="admin-bar-actions">
+          <span class="admin-session">
+            <svg aria-hidden="true"><use href="assets/icons/sprite.svg#icon-user"></use></svg>
+            <span class="admin-session-copy">
+              <strong data-admin-username>admin</strong>
+              <small>Super usuario</small>
+            </span>
+          </span>
+
+          <button type="button" class="btn btn-sm admin-btn-ghost" data-admin-refresh>
+            <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-rotate"></use></svg>
+            <span>Actualizar</span>
+          </button>
+          <button type="button" class="btn btn-sm admin-btn-ghost" data-admin-export>
+            <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-download"></use></svg>
+            <span>Exportar CSV</span>
+          </button>
+          <button type="button" class="btn btn-sm btn-primary" data-admin-logout>Cerrar sesión</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="admin-main" class="admin-main">
+      <div class="admin-container">
+
+        <div class="admin-head">
+          <div class="admin-head-copy">
+            <span class="overline">Panel administrativo</span>
+            <h1 class="admin-title">Ventas <em>Hydralight</em></h1>
+          </div>
+
+          <div class="admin-tabs" role="tablist" aria-label="Secciones del panel">
+            <button type="button" role="tab" id="tab-resumen" data-tab="resumen"
+                    aria-selected="true" aria-controls="panel-resumen" tabindex="0" class="is-active">
+              <svg aria-hidden="true"><use href="assets/icons/sprite.svg#icon-sell"></use></svg>
+              Resumen
+            </button>
+            <button type="button" role="tab" id="tab-pagos" data-tab="pagos"
+                    aria-selected="false" aria-controls="panel-pagos" tabindex="-1">
+              <svg aria-hidden="true"><use href="assets/icons/sprite.svg#icon-card"></use></svg>
+              Pasarelas de pago
+            </button>
+          </div>
+        </div>
+
+        <!-- ============ PANEL: RESUMEN ============ -->
+        <div class="admin-panel" id="panel-resumen" role="tabpanel" aria-labelledby="tab-resumen" data-panel="resumen">
+
+          <div class="admin-toolbar">
+            <p class="admin-sub" data-admin-range-label>Últimos 30 días</p>
+
+            <div class="admin-filters">
+              <div class="admin-segmented" role="group" aria-label="Rango de fechas">
+                <button type="button" data-range="7">7 días</button>
+                <button type="button" data-range="30" class="is-active" aria-pressed="true">30 días</button>
+                <button type="button" data-range="90">90 días</button>
+                <button type="button" data-range="all">Todo</button>
+              </div>
+
+              <label class="admin-search">
+                <svg aria-hidden="true"><use href="assets/icons/sprite.svg#icon-search"></use></svg>
+                <input type="search" data-admin-search placeholder="Buscar pedido, cliente o ciudad" aria-label="Buscar pedidos">
+              </label>
+            </div>
+          </div>
+
+        <div class="admin-notice" data-admin-notice hidden>
+          <p><span data-admin-notice-text></span></p>
+          <button type="button" class="admin-notice-action" data-admin-notice-action hidden></button>
+        </div>
+
+        <!-- KPIs -->
+        <section class="admin-kpis" aria-label="Indicadores del periodo">
+          <article class="admin-kpi">
+            <span class="admin-kpi-label">Ingresos</span>
+            <strong class="admin-kpi-value" data-kpi="revenue">$0</strong>
+            <span class="admin-kpi-delta" data-kpi-delta="revenue"></span>
+          </article>
+          <article class="admin-kpi">
+            <span class="admin-kpi-label">Pedidos</span>
+            <strong class="admin-kpi-value" data-kpi="orders">0</strong>
+            <span class="admin-kpi-delta" data-kpi-delta="orders"></span>
+          </article>
+          <article class="admin-kpi">
+            <span class="admin-kpi-label">Ticket promedio</span>
+            <strong class="admin-kpi-value" data-kpi="ticket">$0</strong>
+            <span class="admin-kpi-delta" data-kpi-delta="ticket"></span>
+          </article>
+          <article class="admin-kpi">
+            <span class="admin-kpi-label">Unidades vendidas</span>
+            <strong class="admin-kpi-value" data-kpi="units">0</strong>
+            <span class="admin-kpi-delta" data-kpi-delta="units"></span>
+          </article>
+        </section>
+
+        <!-- Gráficas -->
+        <section class="admin-charts" aria-label="Análisis de ventas">
+          <article class="admin-card admin-card--wide">
+            <header class="admin-card-head">
+              <h2>Ventas por periodo</h2>
+              <span class="admin-card-meta" data-chart-daily-total></span>
+            </header>
+            <div class="admin-chart" data-chart-daily></div>
+          </article>
+
+          <article class="admin-card">
+            <header class="admin-card-head">
+              <h2>Métodos de pago</h2>
+            </header>
+            <ul class="admin-bars" data-chart-methods></ul>
+          </article>
+
+          <article class="admin-card">
+            <header class="admin-card-head">
+              <h2>Ciudades con más ventas</h2>
+            </header>
+            <ul class="admin-bars" data-chart-cities></ul>
+          </article>
+        </section>
+
+        <!-- Pedidos -->
+        <section class="admin-card admin-card--table" aria-labelledby="admin-orders-title">
+          <header class="admin-card-head admin-card-head--table">
+            <h2 id="admin-orders-title">
+              Pedidos
+              <span class="admin-count" data-admin-count>0</span>
+            </h2>
+            <div class="admin-status-filter" role="group" aria-label="Filtrar por estado">
+              <button type="button" class="is-active" data-status="all" aria-pressed="true">Todos</button>
+              <button type="button" data-status="pendiente">Pendientes</button>
+              <button type="button" data-status="enviado">Enviados</button>
+              <button type="button" data-status="entregado">Entregados</button>
+              <button type="button" data-status="cancelado">Cancelados</button>
+            </div>
+          </header>
+
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th scope="col">Pedido</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Cliente</th>
+                  <th scope="col">Ciudad</th>
+                  <th scope="col">Pago</th>
+                  <th scope="col" class="is-num">Uds.</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col" class="is-num">Total</th>
+                </tr>
+              </thead>
+              <tbody data-admin-rows></tbody>
+            </table>
+          </div>
+
+          <p class="admin-empty" data-admin-empty hidden>No hay pedidos que coincidan con los filtros seleccionados.</p>
+        </section>
+
+        </div><!-- /panel resumen -->
+
+        <!-- ============ PANEL: PASARELAS DE PAGO ============ -->
+        <div class="admin-panel" id="panel-pagos" role="tabpanel" aria-labelledby="tab-pagos" data-panel="pagos" hidden>
+
+          <div class="admin-pay-head">
+            <div class="admin-pay-head-copy">
+              <span class="overline">Cobros</span>
+              <h2 class="admin-pay-title">Pasarelas de <em>pago</em></h2>
+              <p class="admin-pay-desc">
+                Conecta las APIs de los bancos y pasarelas para que tus clientes paguen en el checkout.
+                Cada llave se guarda en este navegador y se envía al backend cuando procesas el cobro.
+              </p>
+            </div>
+
+            <div class="admin-pay-add">
+              <label class="visually-hidden" for="gateway-provider">Pasarela a añadir</label>
+              <select id="gateway-provider" data-gateway-provider></select>
+              <button type="button" class="btn btn-primary btn-sm" data-gateway-add>
+                <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-card"></use></svg>
+                Añadir
+              </button>
+            </div>
+          </div>
+
+          <div class="admin-pay-summary">
+            <span class="admin-pay-count" data-pay-count>0 de 0 activas</span>
+            <span class="admin-pay-methods" data-pay-methods>Ningún método habilitado todavía</span>
+          </div>
+
+          <div class="admin-gateways" data-gateways></div>
+
+          <div class="admin-pay-foot">
+            <button type="button" class="btn btn-outline btn-sm" data-pay-export>
+              <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons/sprite.svg#icon-copy"></use></svg>
+              Copiar configuración (JSON)
+            </button>
+            <button type="button" class="btn btn-ghost btn-sm" data-pay-reset>Restaurar por defecto</button>
+            <p class="admin-pay-warning">
+              <svg aria-hidden="true"><use href="assets/icons/sprite.svg#icon-shield"></use></svg>
+              Las llaves privadas nunca deben publicarse en el navegador de un cliente. Esta pantalla es de
+              administración: en producción las llaves viven en el servidor y el sitio solo recibe el token de pago.
+            </p>
+          </div>
+        </div><!-- /panel pagos -->
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Detalle del pedido -->
+  <div class="admin-modal" data-admin-modal hidden>
+    <div class="admin-modal-overlay" data-modal-close></div>
+    <div class="admin-modal-panel" role="dialog" aria-modal="true" aria-labelledby="admin-modal-title">
+      <button type="button" class="admin-modal-close" data-modal-close aria-label="Cerrar detalle">
+        <svg aria-hidden="true"><use href="assets/icons/sprite.svg#icon-close"></use></svg>
+      </button>
+      <div data-modal-body></div>
+    </div>
+  </div>
+
+  <script src="js/utils.js" defer></script>
+  <script src="js/toast.js" defer></script>
+  <script src="js/orders.js" defer></script>
+  <script src="js/payment-gateways.js" defer></script>
+  <script src="js/admin-payments.js" defer></script>
+  <script src="js/admin.js" defer></script>
+</body>
+</html>
