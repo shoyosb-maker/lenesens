@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#f2c6d6" />
+		<meta
+			name="description"
+			content="HYDRALIGHT de LENESENS: suero corporal hidratante y aclarador, presentado en 3D con Babylon.js."
+		/>
+		<title>HYDRALIGHT · LENESENS</title>
+		<style>
+			.viewer-overlay {
+				position: absolute;
+				inset: 0;
+				z-index: 10;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				/* Deja libre la franja inferior donde flota el selector de vistas. */
+				padding: 1rem 1rem 4rem;
+				pointer-events: none;
+			}
+
+			.viewer-top {
+				display: flex;
+				align-items: flex-start;
+				justify-content: space-between;
+				gap: 0.75rem;
+			}
+
+			.viewer-tag {
+				font-size: 0.55rem;
+				line-height: 1.4;
+				text-transform: uppercase;
+				white-space: nowrap;
+				color: rgba(92, 42, 68, 0.8);
+				text-shadow: 0 1px 10px rgba(255, 246, 250, 0.55);
+			}
+
+			.viewer-tag-brand {
+				letter-spacing: 0.3em;
+			}
+
+			.viewer-tag-meta {
+				letter-spacing: 0.2em;
+				color: rgba(92, 42, 68, 0.64);
+			}
+
+			.viewer-switcher-wrap {
+				position: absolute;
+				inset-inline: 0;
+				bottom: 1rem;
+				z-index: 20;
+				display: flex;
+				justify-content: center;
+				pointer-events: none;
+			}
+
+			@media (min-width: 400px) {
+				.viewer-overlay {
+					padding: 1.5rem 1.5rem 4.5rem;
+				}
+			}
+
+			@media (max-width: 359px) {
+				.viewer-tag {
+					font-size: 0.5rem;
+				}
+
+				.view-switcher .view-button {
+					padding: 0.4rem 0.8rem;
+					font-size: 0.52rem;
+				}
+			}
+		</style>
+		<script type="module" crossorigin src="./assets/index-WhL1Zh7w.js"></script>
+		<link rel="stylesheet" crossorigin href="./assets/index-BAduv7p_.css">
+	</head>
+	<body>
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+		<main id="app" class="relative w-screen h-screen overflow-hidden bg-[#f9eff2]">
+			<canvas id="canvas" class="absolute inset-0 w-full h-full outline-none select-none touch-none"></canvas>
+
+			<div class="viewer-overlay">
+				<div class="viewer-top">
+					<span class="viewer-tag viewer-tag-brand">Lenesens®</span>
+					<span class="viewer-tag viewer-tag-meta">90 ml · Vegan · Clean</span>
+				</div>
+
+			</div>
+
+			<div class="zoom-controls" role="group" aria-label="Zoom del visor 3D">
+				<button type="button" class="zoom-button" data-zoom="in" aria-label="Acercar" title="Acercar">
+					<span aria-hidden="true">+</span>
+				</button>
+				<button type="button" class="zoom-button" data-zoom="out" aria-label="Alejar" title="Alejar">
+					<span aria-hidden="true">−</span>
+				</button>
+			</div>
+
+			<div class="viewer-switcher-wrap">
+				<div class="view-switcher pointer-events-auto">
+					<button type="button" class="view-button" data-view="bottle" aria-pressed="false">Frasco</button>
+					<button type="button" class="view-button" data-view="box" aria-pressed="false">Caja</button>
+					<button type="button" class="view-button" data-view="set" aria-pressed="true">Conjunto</button>
+				</div>
+			</div>
+		</main>
+
+		<!-- Avisa a la página que contiene el visor cuando la escena 3D
+		     ya está lista, para que la pantalla de carga no la descubra
+		     a medio renderizar. -->
+		<script>
+			(function () {
+				if (window.parent === window) return;
+
+				var sent = false;
+				var startedAt = Date.now();
+
+				function notify() {
+					if (sent) return;
+					sent = true;
+					try {
+						window.parent.postMessage({ type: 'lenesens:viewer-ready' }, '*');
+					} catch (error) {
+						/* sin acceso al padre */
+					}
+				}
+
+				function waitForReadyScene(scene) {
+					var firstFrameAt = 0;
+					var lastKick = 0;
+
+					scene.onAfterRenderObservable.add(function () {
+						if (!firstFrameAt) firstFrameAt = Date.now();
+					});
+
+					var check = window.setInterval(function () {
+						var now = Date.now();
+						var ready = false;
+
+						try {
+							ready = scene.isReady(true);
+						} catch (error) {
+							ready = false;
+						}
+
+						/* Si el navegador frena el iframe tapado por la
+						   cortina, forzamos un frame para que la escena
+						   avance y termine de compilar materiales. */
+						if ((!firstFrameAt || ready) && now - lastKick > 250) {
+							lastKick = now;
+							try {
+								scene.render();
+							} catch (error) {
+								/* sin render disponible */
+							}
+						}
+
+						if (ready && firstFrameAt && now - firstFrameAt >= 350) {
+							window.clearInterval(check);
+							notify();
+						} else if (Date.now() - startedAt > 6500) {
+							window.clearInterval(check);
+							notify();
+						}
+					}, 100);
+
+					window.setTimeout(notify, 6000);
+				}
+
+				function tick() {
+					var app = window.__LNS_3D_VIEWER__;
+					var scene = app && app._scene;
+
+					if (scene) {
+						/* Respaldo solo si la escena queda pausada fuera de pantalla */
+						window.setTimeout(notify, 6000);
+						waitForReadyScene(scene);
+						return;
+					}
+
+					if (Date.now() - startedAt > 6000) {
+						notify();
+						return;
+					}
+
+					window.setTimeout(tick, 80);
+				}
+
+				tick();
+			})();
+		</script>
+
+	</body>
+</html>
